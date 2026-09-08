@@ -1,4 +1,11 @@
 <!doctype html><html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bible Challenge</title>
+<meta name="theme-color" content="#08283d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bible Challenge">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 :root{--n:#08283d;--g:#c99024;--c:#fffaf0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:#14232d;background:#fbfaf6;font-family:Georgia,serif}.w{max-width:1100px;margin:auto;padding:0 20px}
 .hero{min-height:620px;color:white;background:radial-gradient(circle at 80% 28%,#d49a3e 0,#78643d 20%,#34505a 43%,#0b2b40 75%);position:relative;overflow:hidden}.hero:after{content:"✝";position:absolute;right:6%;top:65px;font-size:270px;color:#ffd88f2b}
@@ -27,4 +34,9 @@ label{font:bold 14px Arial;display:block;margin:12px 0 7px}input[type=date]{widt
 <section id="resurse"><div class="w"><div class="title"><h2>Resurse utile pentru predicatori</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div>
 <div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută: credință, rugăciune, familie, Duhul Sfânt..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div>
 <div id="resourceList"></div></div></section>
-<section class="dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><div class="ey">DEVELOPER</div><h2>Iordan Sampras</h2><p class="role">Creator Bible Challenge</p><p style="font:18px/1.7 Arial">Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><div class="contact">📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</div></div></div></section><footer>© Bible Challenge • Dezvoltat de Iordan Sampras</footer><script src="app.js"></script></body></html>
+<section class="dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><div class="ey">DEVELOPER</div><h2>Iordan Sampras</h2><p class="role">Creator Bible Challenge</p><p style="font:18px/1.7 Arial">Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><div class="contact">📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</div></div></div></section><footer>© Bible Challenge • Dezvoltat de Iordan Sampras</footer><script src="app.js"></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script></body></html>

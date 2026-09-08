@@ -1,1 +1,22 @@
-{"name":"Bible Challenge","short_name":"Bible Challenge","start_url":"/","display":"standalone","theme_color":"#08283d","background_color":"#fbfaf6"}
+{
+  "name": "Bible Challenge",
+  "short_name": "Bible Challenge",
+  "description": "Planuri de citire a Bibliei, quiz creștin și resurse pentru predicatori.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#08283d",
+  "lang": "ro",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
