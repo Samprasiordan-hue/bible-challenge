@@ -1,11 +1,11 @@
 {
   "name": "Comoara Ascunsă",
   "short_name": "Comoara Ascunsă",
-  "description": "Descoperă bogățiile Cuvântului lui Dumnezeu: planuri de citire, quiz și resurse biblice.",
+  "description": "Citește. Descoperă. Crește. Trăiește.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#fffaf0",
-  "theme_color": "#08283d",
+  "background_color": "#f7f0df",
+  "theme_color": "#153b55",
   "lang": "ro",
   "icons": [
     {

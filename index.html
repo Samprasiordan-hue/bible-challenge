@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 :root{--n:#08283d;--g:#c99024;--c:#fffaf0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:#14232d;background:#fbfaf6;font-family:Georgia,serif}.w{max-width:1100px;margin:auto;padding:0 20px}
-.hero{min-height:620px;color:white;background:radial-gradient(circle at 80% 28%,#d49a3e 0,#78643d 20%,#34505a 43%,#0b2b40 75%);position:relative;overflow:hidden}.hero:after{content:"<img class="hero-logo-inline" src="logo-comoara-ascunsa.jpg" alt="Comoara Ascunsă">";position:absolute;right:6%;top:65px;font-size:270px;color:#ffd88f2b}
+.hero{min-height:620px;color:white;background:radial-gradient(circle at 80% 28%,#d49a3e 0,#78643d 20%,#34505a 43%,#0b2b40 75%);position:relative;overflow:hidden}.hero:after{content:"<img src="logo-comoara-ascunsa.jpg" alt="Comoara Ascunsă" class="comoara-hero-logo">";position:absolute;right:6%;top:65px;font-size:270px;color:#ffd88f2b}
 nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0;position:relative;z-index:2}.brand{font-size:25px;font-weight:bold}.brand span{color:#f1bd58}.links{display:flex;gap:22px;font-family:Arial;font-size:14px}.links a{color:white;text-decoration:none}
 .hc{padding:90px 0;max-width:680px;position:relative;z-index:2}.ey{letter-spacing:4px;color:#f1c66d;font-weight:bold}.hc h1{font-size:68px;line-height:1;margin:12px 0}.hc h2{font-size:32px;font-weight:normal;margin:0 0 20px}.hc p{font:19px/1.6 Arial}.btn{display:inline-block;border:0;border-radius:30px;background:var(--g);color:white;padding:14px 21px;margin:7px 6px 0 0;text-decoration:none;font:bold 15px Arial;cursor:pointer}.btn.alt{background:white;color:var(--n)}
 section{padding:65px 0}.title{text-align:center;margin-bottom:30px}.title h2{font-size:40px;margin:0}.title p{font:16px Arial;color:#68747b}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid #e8e0d2;border-radius:20px;padding:24px;box-shadow:0 10px 30px #23323d0d}.plan{text-align:center;cursor:pointer}.plan.active{outline:3px solid var(--g);background:#fff9e9}.plan b{font-size:36px;color:var(--n)}
@@ -26,19 +26,30 @@ label{font:bold 14px Arial;display:block;margin:12px 0 7px}input[type=date]{widt
 .resourceBody{padding:0 18px 18px;font:16px/1.65 Arial;border-top:1px solid #eee8dc}.resourceApp{background:#fff3d5;padding:12px;border-radius:10px}
 @media(max-width:700px){.quizControls select,.quizControls .btn,.resourceTools select,.resourceTools input{width:100%;margin:0}}
 </style>
-<style>
-.hero-new-logo img,.hero-logo-inline{
-  width:min(42vw,300px);
-  height:auto;
-  border-radius:24px;
-  object-fit:cover;
-  display:block;
-  box-shadow:0 12px 35px rgba(0,0,0,.28);
+<style id="comoara-final-theme">
+:root{
+ --navy:#153b55 !important;
+ --gold:#c58a2a !important;
+ --cream:#f7f0df !important;
 }
-@media(max-width:700px){
-  .hero-new-logo img,.hero-logo-inline{width:42vw;max-width:260px;border-radius:20px;}
+body{background:#f7f0df !important;color:#153b55 !important;}
+header,nav{background:#153b55 !important;}
+.hero{
+ background:linear-gradient(135deg,#f7f0df 0%,#efe2c5 48%,#d9e5e8 100%) !important;
+ color:#153b55 !important;
+}
+.hero h1,.hero h2,.hero p{color:#153b55 !important;}
+button,.btn,.primary{border-radius:12px;}
+.comoara-hero-logo{
+ width:min(62vw,320px) !important;
+ height:auto !important;
+ display:block !important;
+ margin:18px auto !important;
+ border-radius:24px !important;
+ box-shadow:0 12px 30px rgba(21,59,85,.18) !important;
 }
 </style>
+
 </head><body>
 <header class="hero"><div class="w"><nav><div class="brand">📖 <span>Bible</span> Challenge</div><div class="links"><a href="#">Acasă</a><a href="#planuri">Planuri</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse utile</a><a href="#despre">Despre</a></div></nav><div class="hc"><div class="ey">MAI MULT DECÂT O LECTURĂ</div><h1>Comoara Ascunsă</h1><h2>Citește. Descoperă. Crește. Trăiește.</h2><p>Parcurge întreaga Biblie într-un ritm ales de tine, urmărește progresul și testează-ți cunoștințele biblice și doctrinare.</p><a class="btn" href="#planuri">Începe provocarea →</a><a class="btn alt" href="#quiz">Quiz Creștin</a><p><i>„Cuvântul Tău este o candelă pentru picioarele mele și o lumină pe cărarea mea.” — Psalmul 119:105</i></p></div></div></header>
 <section id="planuri"><div class="w"><div class="title"><h2>Planuri de citire</h2><p>Fiecare persoană își alege singură data de început.</p></div><div class="grid"><div class="card plan" data-p="40"><b>40</b><h3>zile</h3><p>Provocare intensă</p></div><div class="card plan" data-p="60"><b>60</b><h3>zile</h3><p>Ritm echilibrat</p></div><div class="card plan" data-p="90"><b>90</b><h3>zile</h3><p>Ritm constant</p></div></div><div class="card" style="margin-top:20px"><label>Alege data de început</label><input id="start" type="date"><div class="today" id="today"></div><div style="display:flex;justify-content:space-between;font-family:Arial"><b>Progres</b><b id="pct">0%</b></div><div class="bar"><i id="bar"></i></div><p id="summary" style="font-family:Arial"></p><div id="days"></div></div></div></section>
