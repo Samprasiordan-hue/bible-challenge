@@ -4,8 +4,8 @@
   "description": "Citește. Descoperă. Crește. Trăiește.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f7f0df",
-  "theme_color": "#153b55",
+  "background_color": "#fbf4e2",
+  "theme_color": "#123f5b",
   "lang": "ro",
   "icons": [
     {
