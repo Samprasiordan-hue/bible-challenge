@@ -54,7 +54,21 @@ nav{background:rgba(255,255,255,.72);margin:0 -20px;padding:15px 20px;border-rad
  .hc h2{font-size:31px;line-height:1.25}
 }
 </style>
-</head><body>
+<style id="password-gate-style">
+#passwordGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;background:#fbf4e2}
+.gate-card{width:min(420px,100%);text-align:center;background:#fffaf0;border:1px solid rgba(214,154,29,.35);border-radius:24px;padding:30px 24px;box-shadow:0 18px 60px rgba(18,63,91,.14)}
+.gate-logo{width:112px;height:112px;object-fit:cover;border-radius:22px;border:2px solid #d69a1d;margin-bottom:14px}
+.gate-card h1{margin:0 0 8px;color:#123f5b;font-size:34px}.gate-card h1 span{color:#d69a1d}.gate-card p{color:#496575;margin:0 0 20px}
+.gate-card input{width:100%;box-sizing:border-box;padding:15px 16px;border:1px solid #c8c8c8;border-radius:12px;font-size:18px;text-align:center;outline:none;background:white}
+.gate-card button{width:100%;margin-top:12px;padding:15px 18px;border:0;border-radius:12px;background:#d69a1d;color:white;font-size:17px;font-weight:700}
+#gateError{min-height:22px;margin:12px 0 0;color:#a32d2d;font-size:14px}
+</style></head><body><div id="passwordGate"><div class="gate-card">
+<img class="gate-logo" src="logo-comoara-ascunsa.jpg" alt="Comoara Ascunsă">
+<h1><span>Comoara</span> Ascunsă</h1>
+<p>Introduceți parola pentru a avea acces la site.</p>
+<form id="passwordForm"><input id="passwordInput" type="password" placeholder="Parola" autocomplete="current-password" autofocus>
+<button type="submit">Intră pe site</button><div id="gateError"></div></form>
+</div></div>
 <header class="hero"><div class="w"><nav><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><span>Comoara</span> Ascunsă</div><div class="links"><a href="#">Acasă</a><a href="#planuri">Planuri</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse utile</a><a href="#despre">Despre</a></div></nav><div class="hc"><div class="ey">MAI MULT DECÂT O LECTURĂ</div><h1><span>Comoara</span><br>Ascunsă</h1><h2>Citește. Descoperă. Crește.<br>Trăiește.</h2><p>Parcurge întreaga Biblie într-un ritm ales de tine, urmărește progresul și testează-ți cunoștințele biblice și doctrinare.</p><a class="btn" href="#planuri">Începe provocarea →</a><a class="btn alt" href="#quiz">Quiz Creștin</a><p><i>„Cuvântul Tău este o candelă pentru picioarele mele și o lumină pe cărarea mea.” — Psalmul 119:105</i></p></div></div></header>
 <section id="planuri"><div class="w"><div class="title"><h2>Planuri de citire</h2><p>Fiecare persoană își alege singură data de început.</p></div><div class="grid"><div class="card plan" data-p="40"><b>40</b><h3>zile</h3><p>Provocare intensă</p></div><div class="card plan" data-p="60"><b>60</b><h3>zile</h3><p>Ritm echilibrat</p></div><div class="card plan" data-p="90"><b>90</b><h3>zile</h3><p>Ritm constant</p></div></div><div class="card" style="margin-top:20px"><label>Alege data de început</label><input id="start" type="date"><div class="today" id="today"></div><div style="display:flex;justify-content:space-between;font-family:Arial"><b>Progres</b><b id="pct">0%</b></div><div class="bar"><i id="bar"></i></div><p id="summary" style="font-family:Arial"></p><div id="days"></div></div></div></section>
 <section class="quiz" id="quiz"><div class="w"><div class="title"><h2>Quiz Creștin</h2><p>100 de întrebări • Biblie • doctrină • teologie penticostală</p></div>
@@ -68,4 +82,11 @@ nav{background:rgba(255,255,255,.72);margin:0 -20px;padding:15px 20px;border-rad
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
+</script><script id="password-gate-script">
+(function(){
+var gate=document.getElementById('passwordGate'),form=document.getElementById('passwordForm'),input=document.getElementById('passwordInput'),error=document.getElementById('gateError');
+var KEY='comoaraAscunsaAccess',PASSWORD='Maranata';
+if(localStorage.getItem(KEY)==='granted')gate.style.display='none';
+form.addEventListener('submit',function(e){e.preventDefault();if(input.value===PASSWORD){localStorage.setItem(KEY,'granted');gate.style.display='none';error.textContent='';}else{error.textContent='Parola nu este corectă.';input.value='';input.focus();}});
+})();
 </script></body></html>
