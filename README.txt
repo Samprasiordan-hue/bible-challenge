@@ -1,0 +1,1 @@
+Bible Challenge V3 — planuri 40/60/90, dată de start aleasă de utilizator, progres local, quiz și profil developer.
