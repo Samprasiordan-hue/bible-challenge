@@ -1,8 +1,12 @@
-Bible Challenge V10 FINAL
-- planuri 40/60/90 zile + progres local
+COMOARA ASCUNSĂ — versiune finală
+Slogan: Citește. Descoperă. Crește. Trăiește.
+
+Păstrează funcțiile proiectului Bible Challenge:
+- planuri de citire 40/60/90 zile
+- progres salvat
 - cititor biblic RCCV
-- quiz: 100 întrebări, categorii și dificultate
-- 40 resurse utile pentru predicatori + căutare
-- favicon și iconiță iPhone
-- manifest PWA + service worker pentru instalare ca aplicație
-- HTML final curățat
+- quiz cu 100 întrebări
+- resurse utile
+- instalare pe iPhone ca aplicație
+
+Pentru actualizare: înlocuiește fișierele proiectului cu cele din acest pachet.
