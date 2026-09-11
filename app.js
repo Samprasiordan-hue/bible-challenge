@@ -174,6 +174,10 @@ async function openReader(dayIndex){
       if(!a.includes(n)){a.push(n);a.sort((x,y)=>x-y);localStorage.setItem(K(),JSON.stringify(a));}
       render();
       document.dispatchEvent(new CustomEvent('comoara:progresschanged',{detail:{plan:p,day:n,done:true}}));
+      // Sync the group challenge immediately, not only through a delayed document event.
+      if(p==='90' && typeof window.syncChallengeFromPlan==='function'){
+        try{ await window.syncChallengeFromPlan(true); }catch(err){ console.warn('Challenge sync failed',err); }
+      }
       const btn=content.querySelector('.readerDone');
       btn.textContent='✓ Ziua '+n+' este terminată';
       btn.disabled=true;

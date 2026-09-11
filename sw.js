@@ -1,10 +1,5 @@
-const CACHE='comoara-direct-reader-progress-v5';
-const ASSETS=['./','./index.html','./app.js','./account.js','./app-shell.css','./app-shell.js','./manifest.json','./favicon.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png','./logo-comoara-ascunsa.jpg','./iordan-sampras-final.png'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));
-self.addEventListener('fetch',e=>{
-  if(e.request.method!=='GET') return;
-  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{
-    const copy=resp.clone(); caches.open(CACHE).then(c=>c.put(e.request,copy)); return resp;
-  }).catch(()=>caches.match('./index.html'))));
-});
+const CACHE='comoara-v6-live';
+const ASSETS=['./','./index.html','./app.js?v=6','./account.js?v=6','./app-shell.css?v=6','./app-shell.js?v=6','./manifest.json','./favicon.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png','./logo-comoara-ascunsa.jpg','./iordan-sampras-final.png'];
+self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}));});
+self.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim();})());});
+self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET')return;const url=new URL(req.url);if(url.origin!==location.origin)return;event.respondWith((async()=>{try{const fresh=await fetch(req,{cache:'no-store'});const c=await caches.open(CACHE);c.put(req,fresh.clone());return fresh;}catch(e){return (await caches.match(req))||(req.mode==='navigate'?caches.match('./index.html'):Response.error());}})());});
