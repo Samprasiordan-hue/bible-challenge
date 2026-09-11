@@ -1,0 +1,146 @@
+/* Comoara Ascunsa — app-style shell */
+:root{--appbar:78px;--appbottom:0px}
+body.app-shell{background:#f6f7f8;overflow-x:hidden}
+body.app-shell .top{box-shadow:0 1px 10px #00152222}
+body.app-shell .links a{opacity:.78;border-bottom:3px solid transparent;padding:28px 0 22px;transition:.2s}
+body.app-shell .links a.active{opacity:1;color:#f4c65e;border-bottom-color:#f4c65e}
+body.app-shell .links a:first-child{color:#fff;border-bottom-color:transparent;padding-bottom:22px}
+body.app-shell .links a:first-child.active{color:#f4c65e;border-bottom-color:#f4c65e}
+
+/* only one main area is visible at a time */
+body.app-shell .hero,
+body.app-shell .dashboard .dashgrid,
+body.app-shell .dashboard .midgrid,
+body.app-shell .dashboard #planuri,
+body.app-shell .dashboard #provocari,
+body.app-shell .dashboard .quick,
+body.app-shell .dashboard #biblia-libera,
+body.app-shell .dashboard #cont,
+body.app-shell > #quiz,
+body.app-shell > #resurse,
+body.app-shell > #despre,
+body.app-shell > footer{display:none!important}
+
+body.app-shell[data-page="home"] .hero,
+body.app-shell[data-page="home"] .dashboard .dashgrid,
+body.app-shell[data-page="home"] .dashboard .midgrid,
+body.app-shell[data-page="home"] .dashboard .quick{display:block!important}
+body.app-shell[data-page="home"] .dashboard .dashgrid,
+body.app-shell[data-page="home"] .dashboard .midgrid{display:grid!important}
+body.app-shell[data-page="home"] .dashboard .quick{display:grid!important}
+body.app-shell[data-page="plans"] .dashboard #planuri,
+body.app-shell[data-page="challenges"] .dashboard #provocari,
+body.app-shell[data-page="bible"] .dashboard #biblia-libera,
+body.app-shell[data-page="account"] .dashboard #cont,
+body.app-shell[data-page="quiz"] > #quiz,
+body.app-shell[data-page="resources"] > #resurse,
+body.app-shell[data-page="about"] > #despre{display:block!important}
+
+/* compact home */
+body.app-shell[data-page="home"] .hero{min-height:170px}
+body.app-shell[data-page="home"] .heroIn{padding:30px 0 24px}
+body.app-shell[data-page="home"] .hero h1{font-size:34px;margin-bottom:8px}
+body.app-shell[data-page="home"] .hero p{font-size:15px;margin:4px 0}
+body.app-shell[data-page="home"] .hero:after{font-size:88px;bottom:-2px}
+body.app-shell[data-page="home"] .script{font-size:30px;top:36px}
+body.app-shell .dashboard{padding:16px 0 18px;min-height:calc(100dvh - var(--appbar))}
+body.app-shell[data-page="home"] .card{padding:17px}
+body.app-shell[data-page="home"] .midgrid{margin-top:14px}
+body.app-shell[data-page="home"] .quick{margin-top:14px}
+body.app-shell[data-page="home"] .quick .card{min-height:112px}
+body.app-shell[data-page="home"] .quick p{margin-bottom:0}
+body.app-shell[data-page="home"] .quickIcon{font-size:24px;margin-bottom:5px}
+body.app-shell[data-page="home"] .ring{width:112px;height:112px}
+body.app-shell[data-page="home"] .ring:after{width:86px;height:86px}
+body.app-shell[data-page="home"] .ringText b{font-size:29px}
+body.app-shell[data-page="home"] .daybig{font-size:31px}
+body.app-shell[data-page="home"] .readingbig{font-size:23px}
+body.app-shell[data-page="home"] .verse{min-height:145px}
+body.app-shell[data-page="home"] .notes textarea{min-height:76px}
+
+/* app pages */
+body.app-shell[data-page]:not([data-page="home"]) .dashboard{padding-top:22px}
+body.app-shell[data-page="plans"] #planuri,
+body.app-shell[data-page="challenges"] #provocari,
+body.app-shell[data-page="bible"] #biblia-libera,
+body.app-shell[data-page="account"] #cont{margin:0;min-height:calc(100dvh - 122px);max-height:calc(100dvh - 112px);overflow:auto}
+body.app-shell[data-page="quiz"] > #quiz,
+body.app-shell[data-page="resources"] > #resurse,
+body.app-shell[data-page="about"] > #despre{min-height:calc(100dvh - var(--appbar));max-height:calc(100dvh - var(--appbar));overflow:auto;padding:28px 0}
+
+body.app-shell #planuri{border-radius:18px;padding:20px}
+body.app-shell #planuri .plansGrid{grid-template-columns:repeat(3,1fr)}
+body.app-shell #planuri .plan{padding:16px}
+body.app-shell #planuri .daysWrap{max-height:38vh}
+body.app-shell #provocari{border-radius:18px;margin:0;background:linear-gradient(135deg,#0b3048,#123f5b);box-shadow:0 12px 30px #08283d1d;min-height:auto}
+body.app-shell #provocari .people{max-height:38vh;overflow:auto;padding-right:4px}
+body.app-shell #biblia-libera{padding:22px}
+body.app-shell #cont{padding:22px}
+body.app-shell #resurse #resourceList{max-height:calc(100dvh - 250px);overflow:auto;padding-right:5px}
+body.app-shell #quiz #qb{max-height:calc(100dvh - 250px);overflow:auto}
+
+/* mobile bottom navigation */
+.appBottomNav{display:none}
+.appMoreSheet{display:none}
+@media(max-width:760px){
+  :root{--appbar:70px;--appbottom:66px}
+  body.app-shell{padding-bottom:66px}
+  body.app-shell .top{position:sticky}
+  body.app-shell .brand{margin-right:auto}
+  body.app-shell .dashboard{min-height:calc(100dvh - 136px);padding:10px 0 14px}
+  body.app-shell .w{padding-left:12px;padding-right:12px}
+  body.app-shell[data-page="home"] .hero{min-height:130px}
+  body.app-shell[data-page="home"] .heroIn{padding:22px 0 16px}
+  body.app-shell[data-page="home"] .hero h1{font-size:27px;max-width:270px}
+  body.app-shell[data-page="home"] .hero p{display:none}
+  body.app-shell[data-page="home"] .hero:after{font-size:70px;right:2%;opacity:.45}
+  body.app-shell[data-page="home"] .dashgrid{grid-template-columns:1fr!important;gap:10px}
+  body.app-shell[data-page="home"] .dashgrid article:nth-child(2){display:none}
+  body.app-shell[data-page="home"] .midgrid{grid-template-columns:1fr!important;gap:10px}
+  body.app-shell[data-page="home"] .midgrid .notes{display:none}
+  body.app-shell[data-page="home"] .quick{grid-template-columns:repeat(3,1fr)!important;gap:8px}
+  body.app-shell[data-page="home"] .quick .card{padding:12px 8px;text-align:center;min-height:88px}
+  body.app-shell[data-page="home"] .quick .muted{display:none}
+  body.app-shell[data-page="home"] .quick h3{font-size:13px;margin:0}
+  body.app-shell[data-page="home"] .todaygrid{grid-template-columns:1fr auto!important;gap:7px}
+  body.app-shell[data-page="home"] .todaygrid .muted{display:none}
+  body.app-shell[data-page="home"] .ring{width:84px;height:84px}
+  body.app-shell[data-page="home"] .ring:after{width:64px;height:64px}
+  body.app-shell[data-page="home"] .ringText b{font-size:22px}
+  body.app-shell[data-page="home"] .ringText small{font-size:9px}
+  body.app-shell[data-page="home"] .daybig{font-size:24px}
+  body.app-shell[data-page="home"] .readingbig{font-size:19px}
+  body.app-shell[data-page="home"] .btn{padding:11px 14px;font-size:13px}
+  body.app-shell[data-page="home"] .verse{min-height:110px}
+  body.app-shell[data-page="home"] .verse blockquote{font-size:16px}
+
+  body.app-shell[data-page="plans"] #planuri,
+  body.app-shell[data-page="challenges"] #provocari,
+  body.app-shell[data-page="bible"] #biblia-libera,
+  body.app-shell[data-page="account"] #cont{min-height:calc(100dvh - 94px - var(--appbottom));max-height:calc(100dvh - 94px - var(--appbottom));overflow:auto;border-radius:16px}
+  body.app-shell[data-page="quiz"] > #quiz,
+  body.app-shell[data-page="resources"] > #resurse,
+  body.app-shell[data-page="about"] > #despre{min-height:calc(100dvh - var(--appbar) - var(--appbottom));max-height:calc(100dvh - var(--appbar) - var(--appbottom));overflow:auto;padding:18px 0}
+  body.app-shell #planuri .plansGrid{grid-template-columns:1fr;gap:8px}
+  body.app-shell #planuri .plan{display:grid;grid-template-columns:1fr auto;gap:4px 8px;text-align:left;align-items:center;padding:12px}
+  body.app-shell #planuri .plan b{font-size:18px}
+  body.app-shell #planuri .plan p{display:none}
+  body.app-shell #planuri .plan .btn{grid-row:1;grid-column:2;padding:8px 11px;font-size:12px}
+  body.app-shell #planuri .daysWrap{max-height:34vh}
+  body.app-shell #provocari{padding:18px!important}
+  body.app-shell #provocari .challengeStats{grid-template-columns:repeat(3,1fr)}
+  body.app-shell #provocari .joinrow{display:grid;grid-template-columns:1fr 1fr}
+  body.app-shell #provocari .joinrow input{grid-column:1/-1}
+  body.app-shell #provocari .people{max-height:34vh}
+  body.app-shell .authGrid{gap:14px}
+  body.app-shell #resurse #resourceList{max-height:calc(100dvh - 230px)}
+
+  .appBottomNav{display:flex;position:fixed;z-index:10020;left:0;right:0;bottom:0;height:66px;background:#fff;border-top:1px solid #dfe4e8;box-shadow:0 -6px 22px #061c2b12;align-items:center;justify-content:space-around;padding-bottom:max(0px,env(safe-area-inset-bottom))}
+  .appBottomNav button{border:0;background:transparent;color:#526777;min-width:58px;font-size:10px;font-weight:700;padding:6px 4px;cursor:pointer}
+  .appBottomNav button span{display:block;font-size:20px;line-height:24px;margin-bottom:1px}
+  .appBottomNav button.active{color:#b77d08}
+  .appMoreSheet{display:block;position:fixed;z-index:10050;left:12px;right:12px;bottom:74px;background:#fff;border:1px solid #e0e5e8;border-radius:18px;padding:8px;box-shadow:0 16px 50px #00152238;transform:translateY(130%);opacity:0;pointer-events:none;transition:.22s}
+  .appMoreSheet.open{transform:translateY(0);opacity:1;pointer-events:auto}
+  .appMoreSheet button{width:100%;border:0;background:#fff;text-align:left;padding:14px 13px;border-radius:11px;font-size:15px;color:#18384d}
+  .appMoreSheet button:active{background:#f3f5f6}
+}
