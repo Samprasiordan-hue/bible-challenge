@@ -51,6 +51,21 @@ body{padding-bottom:0!important}
 @media(max-width:760px){.bibleAppTop{height:58px;padding:0 10px}.bibleAppTop b{font-size:18px}.bibleAppGrid{display:block;overflow:auto;padding-bottom:65px}.biblePane,.chapterPane,.readingPane{display:none;border:0;min-height:calc(100vh - 123px)}.bibleAppGrid[data-step="books"] .biblePane,.bibleAppGrid[data-step="chapters"] .chapterPane,.bibleAppGrid[data-step="reading"] .readingPane{display:block}.biblePaneTitle{top:0}.testamentTabs{top:49px}.chapterPane .biblePaneTitle{padding-top:20px}.readingPane{padding:0 16px 70px}.readingHead{top:0}.appVerse{grid-template-columns:28px 1fr;gap:6px;font-size:19px}.appVerseActions{grid-column:2;justify-content:flex-end}.bibleMobileBar{display:flex;position:fixed;bottom:0;left:0;right:0;height:64px;background:#fff;border-top:1px solid #dce1e5;z-index:10030;justify-content:space-around;align-items:center}.bibleMobileBar button{border:0;background:transparent;font-size:13px}.bibleMobileBar button b{display:block;font-size:20px;margin-bottom:3px}}
 </style>
 
+
+<style>
+/* v9 compact scroll: same website flow, less vertical travel */
+.dashboard{padding-top:18px;padding-bottom:18px}.dashboard>.w{display:grid;gap:18px}.card{padding:20px}.dashgrid,.midgrid{gap:14px}.hero{min-height:300px}.heroIn{padding:42px 0}.section{padding:38px 0}.plansGrid{gap:12px}.plan{padding:16px}.challengeHero{margin-top:18px;margin-bottom:18px}.people{max-height:430px;overflow:auto}.daysWrap{max-height:460px;overflow:auto}.resourceCard summary{padding:13px 15px}.resourceBody{padding:0 15px 14px}.devgrid{gap:22px}.dev img{max-height:300px;object-fit:cover;object-position:top}
+#resourceList{max-height:620px;overflow:auto;padding-right:4px}
+@media(max-width:760px){
+ .hero{min-height:215px!important}.heroIn{padding:26px 0 22px!important}.hero h1{font-size:30px!important;line-height:1.08!important}.hero p{margin:8px 0!important}.dashboard>.w{gap:12px!important}.card{padding:15px!important}.cardhead{margin-bottom:10px!important}
+ .dashgrid{gap:10px!important}.dashgrid>article:nth-child(2){display:none!important}.midgrid{gap:10px!important}.midgrid .notes{display:none!important}.midgrid .verse{padding:14px!important}.midgrid blockquote{font-size:18px!important;margin:6px 0!important}
+ .quick{display:none!important}.plansGrid{gap:8px!important}.plan{padding:13px!important}.plan p{margin:5px 0 9px!important}.startbox{padding:10px!important}.directDaysHead{margin-top:10px!important;padding:10px!important}.daysWrap{max-height:390px!important}.day{margin:6px 0!important;padding:10px!important}
+ .challengeHero{margin:12px 0!important;padding:14px!important}.challengeHero>p:nth-of-type(2){margin:7px 0!important}.joinrow{gap:7px!important}.people{max-height:330px!important}
+ .freeBible,.account{margin-top:12px!important}.freeBible>p{margin:7px 0!important}.accountStats{margin:10px 0!important}
+ .section{padding:25px 0!important}.title{margin-bottom:12px!important}.title h2{font-size:26px!important}.title p{margin:4px 0!important}.quizControls,.resourceTools{margin-bottom:10px!important}.resourceCard{margin:7px 0!important}.resourceCard summary{padding:11px 13px!important}#resourceList{max-height:480px!important}
+ .devgrid img{max-height:190px!important;width:150px!important;margin:auto!important}.devgrid{text-align:center!important;gap:12px!important}.devgrid p{margin:6px 0!important}footer{padding-top:18px!important}
+}
+</style>
 </head><body>
 <header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
@@ -68,7 +83,7 @@ body{padding-bottom:0!important}
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
 <section class="section dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><p style="color:#e7b54f;font-weight:bold">DEVELOPER</p><h2>Iordan Sampras</h2><p>Creator Comoara Ascunsă</p><p>Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><p>📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</p></div></div></section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=8"></script><script src="account.js?v=8"></script><script>
+<script src="app.js?v=9"></script><script src="account.js?v=9"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -156,4 +171,4 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v8-scroll</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v9-compact</div></body></html>
