@@ -57,12 +57,32 @@ const SB_KEY='sb_publishable_SxwNyOAxcq55BnEpjHCyow_MsbSUisX';
 const sbHeaders={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
 let activeChallenge=null;
 async function sb(path,opt={}){const r=await fetch(SB_URL+'/rest/v1/'+path,{...opt,headers:{...sbHeaders,...(opt.headers||{})}});if(!r.ok)throw new Error(await r.text());const t=await r.text();return t?JSON.parse(t):null}
-async function loadChallenge(){try{const cs=await sb('challenges?select=id,title,plan_days,start_date,invite_code&title=eq.'+encodeURIComponent('Maranata – Biblia în 90 de zile')+'&limit=1');if(!cs||!cs[0])throw new Error('Provocarea nu a fost găsită');activeChallenge=cs[0];await loadPeople();const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');if(saved&&saved.challengeId===activeChallenge.id){document.getElementById('myProgress').style.display='block';document.getElementById('myDay').value=saved.day||0}}catch(e){document.getElementById('peopleList').innerHTML='<div class="loading">Nu am putut încărca provocarea. Reîncearcă puțin mai târziu.</div>'}}
+async function loadChallenge(){try{const cs=await sb('challenges?select=id,title,plan_days,start_date,invite_code&title=eq.'+encodeURIComponent('Maranata – Biblia în 90 de zile')+'&limit=1');if(!cs||!cs[0])throw new Error('Provocarea nu a fost găsită');activeChallenge=cs[0];await loadPeople();const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');if(saved&&saved.challengeId===activeChallenge.id){document.getElementById('myProgress').style.display='block';document.getElementById('myDay').value=saved.day||0;await syncChallengeFromPlan()}}catch(e){document.getElementById('peopleList').innerHTML='<div class="loading">Nu am putut încărca provocarea. Reîncearcă puțin mai târziu.</div>'}}
 async function loadPeople(){const ps=await sb('participants?select=id,display_name,joined_at,participant_progress(completed_day)&challenge_id=eq.'+activeChallenge.id+'&order=joined_at.asc');let sum=0;ps.forEach(p=>sum+=(p.participant_progress&&p.participant_progress[0]?p.participant_progress[0].completed_day:0));document.getElementById('chPeople').textContent=ps.length;document.getElementById('chAvg').textContent=(ps.length?Math.round(sum/ps.length/90*100):0)+'%';document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=p.participant_progress&&p.participant_progress[0]?p.participant_progress[0].completed_day:0,pc=Math.round(d/90*100);return `<div class="person"><div><b>👤 ${escapeHtml(p.display_name)}</b><div class="mini"><i style="width:${pc}%"></i></div></div><div><b>${pc}%</b><br><small>Ziua ${d}</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>'}
+async function syncChallengeFromPlan(){
+ const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');
+ if(!activeChallenge||!saved||saved.challengeId!==activeChallenge.id) return;
+ if((localStorage.getItem('bc-plan')||'90')!=='90') return;
+ const start=localStorage.getItem('bc-start')||'';
+ const done=JSON.parse(localStorage.getItem(`bc-90-${start||'x'}`)||'[]').map(Number).filter(n=>n>=1&&n<=90);
+ const day=done.length?Math.max(...done):0;
+ if(Number(saved.day||0)===day){document.getElementById('myDay').value=day;return;}
+ try{
+   const ok=await sb('rpc/update_my_progress',{method:'POST',body:JSON.stringify({p_participant_id:saved.id,p_token:saved.token,p_completed_day:day})});
+   if(!ok) return;
+   saved.day=day; localStorage.setItem('comoara-participant',JSON.stringify(saved));
+   document.getElementById('myDay').value=day;
+   document.getElementById('challengeMsg').textContent=`Progres sincronizat automat: ziua ${day}. ✅`;
+   await loadPeople();
+ }catch(e){}
+}
+
 function escapeHtml(x){return String(x).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 document.getElementById('joinChallenge').onclick=async()=>{const n=document.getElementById('joinName').value.trim(),m=document.getElementById('challengeMsg');if(n.length<2){m.textContent='Scrie un nume de cel puțin 2 caractere.';return}try{m.textContent='Te înscriem…';const r=await sb('rpc/join_challenge',{method:'POST',body:JSON.stringify({p_invite_code:activeChallenge.invite_code,p_display_name:n})});const x=r&&r[0];if(!x)throw new Error('join');localStorage.setItem('comoara-participant',JSON.stringify({challengeId:activeChallenge.id,id:x.participant_id,token:x.participant_token,day:0,name:n}));document.getElementById('myProgress').style.display='block';m.textContent='Bine ai venit, '+n+'! 🙏';document.getElementById('joinName').value='';await loadPeople()}catch(e){m.textContent='Nu am putut face înscrierea. Încearcă din nou.'}};
 document.getElementById('saveMyDay').onclick=async()=>{const s=JSON.parse(localStorage.getItem('comoara-participant')||'null'),m=document.getElementById('challengeMsg'),d=Math.max(0,Math.min(90,parseInt(document.getElementById('myDay').value)||0));if(!s){m.textContent='Mai întâi alătură-te provocării.';return}try{const ok=await sb('rpc/update_my_progress',{method:'POST',body:JSON.stringify({p_participant_id:s.id,p_token:s.token,p_completed_day:d})});if(!ok)throw new Error('save');s.day=d;localStorage.setItem('comoara-participant',JSON.stringify(s));m.textContent='Progres salvat: ziua '+d+'. ✅';await loadPeople()}catch(e){m.textContent='Nu am putut salva progresul.'}};
 document.getElementById('shareChallenge').onclick=()=>{const text='Alătură-te provocării „Maranata – Biblia în 90 de zile” pe Comoara Ascunsă: '+location.origin+'/#provocari';location.href='https://wa.me/?text='+encodeURIComponent(text)};
+document.addEventListener('change',()=>setTimeout(syncChallengeFromPlan,120));
+document.addEventListener('click',()=>setTimeout(syncChallengeFromPlan,180));
 loadChallenge();
 </script>
 <script src="app-shell.js"></script>

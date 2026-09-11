@@ -1,4 +1,4 @@
-const CACHE='comoara-identic-v1';
+const CACHE='comoara-identic-v2-progress';
 const ASSETS=['./','./index.html','./app.js','./account.js','./app-shell.css','./app-shell.js','./manifest.json','./favicon.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png','./logo-comoara-ascunsa.jpg','./iordan-sampras-final.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));

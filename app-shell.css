@@ -241,7 +241,7 @@ body.app-shell #cont .accountHead,#authGuest .authGrid>div{border-radius:16px}
   body.app-shell[data-page="home"] .dashgrid article:first-child .cardhead{margin:0 0 6px}.dashgrid article:first-child .cardhead h3{font-size:15px}.dashgrid article:first-child .cardhead .muted{display:none}
   body.app-shell[data-page="home"] .daybig{font-size:17px!important;margin:3px 0}.readingbig{font-size:20px!important;margin:2px 0 8px!important}
   body.app-shell[data-page="home"] .todaygrid .btn{background:#b57b0b;border-radius:50%;width:42px;height:42px;padding:0;font-size:0;display:grid;place-items:center}.todaygrid .btn:after{content:"›";font-size:28px;color:#fff}
-  body.app-shell[data-page="home"] .ring{display:none}
+  body.app-shell[data-page="home"] .ring{display:grid}
   body.app-shell[data-page="home"] .quick{grid-template-columns:1fr 1fr!important;gap:10px;margin-top:11px}
   body.app-shell[data-page="home"] .quick .card{min-height:94px;border-radius:16px;padding:14px 12px;text-align:left;background:#fff}
   body.app-shell[data-page="home"] .quick .card:after{display:none}.quickIcon{font-size:24px!important}.quick h3{font-size:15px!important}.quick .muted{display:block!important;font-size:11px;line-height:1.25;margin:4px 0 0}
