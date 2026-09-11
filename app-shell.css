@@ -144,3 +144,62 @@ body.app-shell #quiz #qb{max-height:calc(100dvh - 250px);overflow:auto}
   .appMoreSheet button{width:100%;border:0;background:#fff;text-align:left;padding:14px 13px;border-radius:11px;font-size:15px;color:#18384d}
   .appMoreSheet button:active{background:#f3f5f6}
 }
+
+/* Premium visual refresh — 2026 */
+:root{--gold2:#f1c76a;--paper:#fbfaf6;--soft:#f2f4f5;--shadow:0 14px 40px rgba(8,40,61,.09)}
+body.app-shell{background:linear-gradient(180deg,#f8f7f2 0,#f3f5f6 100%);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body.app-shell .top{background:linear-gradient(110deg,#071d2e,#0b3048 58%,#102c43);backdrop-filter:blur(16px)}
+body.app-shell .nav{min-height:72px}.brand{letter-spacing:-.4px}.brand img{border-radius:15px;box-shadow:0 6px 20px #0004}
+body.app-shell .links{gap:22px}.links a{font-weight:650}
+body.app-shell .card{border:1px solid rgba(8,40,61,.08);border-radius:22px;box-shadow:var(--shadow)}
+body.app-shell .btn{border-radius:14px;box-shadow:0 6px 16px rgba(8,40,61,.12);transition:transform .15s,box-shadow .15s}
+body.app-shell .btn:hover{transform:translateY(-1px);box-shadow:0 9px 22px rgba(8,40,61,.16)}
+body.app-shell .btn.gold{background:linear-gradient(135deg,#b77d08,#dcae45)}
+body.app-shell[data-page="home"] .hero{background:radial-gradient(circle at 82% 24%,#e9b95b 0,#6f7c70 18%,#284b5d 44%,#071d2e 78%);border-bottom:1px solid #ffffff1a}
+body.app-shell[data-page="home"] .hero:before{background:linear-gradient(90deg,#061b2bea 0,#08283db0 48%,#08283d18 100%)}
+body.app-shell[data-page="home"] .hero h1{letter-spacing:-1px}.hero h1 span{color:#f5c867}
+body.app-shell[data-page="home"] .dashgrid article:first-child{background:linear-gradient(135deg,#fff,#fffaf0)}
+body.app-shell[data-page="home"] .verse{background:linear-gradient(135deg,#eef5f7,#fff4d6);border-color:#eadbb7}
+body.app-shell[data-page="home"] .quick .card{transition:.18s;position:relative;overflow:hidden}
+body.app-shell[data-page="home"] .quick .card:after{content:"›";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:28px;color:#c28a18}
+body.app-shell[data-page="home"] .quick .card:hover{transform:translateY(-2px)}
+body.app-shell #planuri,body.app-shell #biblia-libera,body.app-shell #cont{background:rgba(255,255,255,.96)}
+body.app-shell #planuri .plan{border-radius:18px;background:linear-gradient(180deg,#fff,#fbfaf5)}
+body.app-shell #planuri .plan.active{background:linear-gradient(180deg,#fffdf5,#f7fbf8);outline-color:#d0a13e}
+body.app-shell #provocari{background:linear-gradient(135deg,#071f31,#12435e 72%,#806321);border:1px solid #ffffff20}
+body.app-shell #provocari .challengeStat{backdrop-filter:blur(8px)}
+body.app-shell #provocari .person{box-shadow:0 8px 20px #00152216}
+body.app-shell .resourceCard{border-radius:17px;box-shadow:0 6px 20px rgba(8,40,61,.05)}
+body.app-shell .resourceCard summary{padding:15px 17px}
+body.app-shell .authGrid>div{background:#fafbfb;border:1px solid #e8ecee;border-radius:18px;padding:18px}
+body.app-shell input,body.app-shell select,body.app-shell textarea{outline:none;transition:border-color .15s,box-shadow .15s}
+body.app-shell input:focus,body.app-shell select:focus,body.app-shell textarea:focus{border-color:#d0a13e!important;box-shadow:0 0 0 3px rgba(208,161,62,.12)}
+body.app-shell .savedItem{border-radius:15px;background:#fff;box-shadow:0 5px 16px rgba(8,40,61,.05)}
+body.app-shell .title{text-align:left}.title h2{letter-spacing:-.7px}
+.appMoreSheet{background:rgba(255,255,255,.97)!important;backdrop-filter:blur(18px)}
+
+@media(max-width:760px){
+ body.app-shell .top{background:#071f31}.nav{min-height:62px!important}.brand{font-size:19px!important}.brand img{width:44px!important;height:44px!important}
+ body.app-shell[data-page="home"] .hero{min-height:178px;border-radius:0 0 28px 28px}
+ body.app-shell[data-page="home"] .heroIn{padding:25px 0 18px}
+ body.app-shell[data-page="home"] .hero h1{font-size:28px;line-height:1.08;max-width:285px}
+ body.app-shell[data-page="home"] .hero p:first-of-type{display:block;font-size:13px;max-width:250px;opacity:.9}
+ body.app-shell[data-page="home"] .hero:after{font-size:76px;right:5%;bottom:2px;opacity:.55}
+ body.app-shell[data-page="home"] .dashboard{padding-top:12px}
+ body.app-shell[data-page="home"] .dashgrid article:first-child{border-radius:20px;padding:15px}
+ body.app-shell[data-page="home"] .midgrid{display:none!important}
+ body.app-shell[data-page="home"] .quick{grid-template-columns:1fr 1fr!important;gap:9px}
+ body.app-shell[data-page="home"] .quick .card{min-height:82px;text-align:left;padding:13px 34px 12px 13px}
+ body.app-shell[data-page="home"] .quick .card:after{right:10px;font-size:23px}
+ body.app-shell[data-page="home"] .quickIcon{font-size:22px!important;margin-bottom:4px!important}
+ body.app-shell[data-page="home"] .quick h3{font-size:14px!important}
+ body.app-shell[data-page="home"] .todaygrid{grid-template-columns:1fr auto!important}
+ body.app-shell[data-page="home"] .ring{width:78px;height:78px}.ring:after{width:59px!important;height:59px!important}
+ body.app-shell[data-page="home"] .daybig{font-size:21px}.readingbig{font-size:17px!important}
+ body.app-shell #planuri,body.app-shell #biblia-libera,body.app-shell #cont{border-radius:20px!important;padding:16px!important}
+ body.app-shell #planuri .plansGrid{grid-template-columns:1fr!important}
+ body.app-shell #provocari{border-radius:20px!important}
+ .appBottomNav{height:68px;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-radius:18px 18px 0 0}
+ .appBottomNav button{font-size:10px}.appBottomNav button span{font-size:19px}
+ body.app-shell[data-page="resources"] .title,body.app-shell[data-page="quiz"] .title{margin-bottom:16px}.title h2{font-size:28px}
+}
