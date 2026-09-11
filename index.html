@@ -96,7 +96,7 @@ body{padding-bottom:0!important}
   document.getElementById('continueReading').onclick=()=>{const idx=Math.max(0,Math.min(total-1,day-1)); if(typeof openReader==='function'&&start)openReader(idx); else document.getElementById('planuri').scrollIntoView()};
  }
  setTimeout(updateDash,80); document.addEventListener('change',()=>setTimeout(updateDash,80)); document.addEventListener('click',()=>setTimeout(updateDash,100));
- if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=8').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
+ if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=11').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
 })();
 </script>
 <script>
@@ -106,7 +106,22 @@ const sbHeaders={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type'
 let activeChallenge=null;
 async function sb(path,opt={}){const r=await fetch(SB_URL+'/rest/v1/'+path,{...opt,headers:{...sbHeaders,...(opt.headers||{})}});if(!r.ok)throw new Error(await r.text());const t=await r.text();return t?JSON.parse(t):null}
 async function loadChallenge(){try{const cs=await sb('challenges?select=id,title,plan_days,start_date,invite_code&title=eq.'+encodeURIComponent('Maranata – Biblia în 90 de zile')+'&limit=1');if(!cs||!cs[0])throw new Error('Provocarea nu a fost găsită');activeChallenge=cs[0];await loadPeople();const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');if(saved&&saved.challengeId===activeChallenge.id){document.getElementById('myProgress').style.display='block';document.getElementById('myDay').value=saved.day||0;await syncChallengeFromPlan()}}catch(e){document.getElementById('peopleList').innerHTML='<div class="loading">Nu am putut încărca provocarea. Reîncearcă puțin mai târziu.</div>'}}
-async function loadPeople(){const ps=await sb('participants?select=id,display_name,joined_at,participant_progress(completed_day)&challenge_id=eq.'+activeChallenge.id+'&order=joined_at.asc');let sum=0;ps.forEach(p=>sum+=(p.participant_progress&&p.participant_progress[0]?p.participant_progress[0].completed_day:0));document.getElementById('chPeople').textContent=ps.length;document.getElementById('chAvg').textContent=(ps.length?Math.round(sum/ps.length/90*100):0)+'%';document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=p.participant_progress&&p.participant_progress[0]?p.participant_progress[0].completed_day:0,pc=Math.round(d/90*100);return `<div class="person"><div><b>👤 ${escapeHtml(p.display_name)}</b><div class="mini"><i style="width:${pc}%"></i></div></div><div><b>${pc}%</b><br><small>Ziua ${d}</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>'}
+function progressDay(p){
+ const rel=p&&p.participant_progress;
+ if(Array.isArray(rel)) return Number(rel[0]?.completed_day||0);
+ if(rel && typeof rel==='object') return Number(rel.completed_day||0);
+ return 0;
+}
+async function loadPeople(){
+ const ps=await sb('participants?select=id,display_name,joined_at,participant_progress(completed_day)&challenge_id=eq.'+activeChallenge.id+'&order=joined_at.asc');
+ let sum=0; ps.forEach(p=>sum+=progressDay(p));
+ document.getElementById('chPeople').textContent=ps.length;
+ const avg=ps.length?(sum/ps.length/90*100):0;
+ document.getElementById('chAvg').textContent=(ps.length?avg.toFixed(1).replace('.',','):'0')+'%';
+ document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=progressDay(p),pc=Math.round(d/90*100);return `<div class="person"><div><b>👤 ${escapeHtml(p.display_name)}</b><div class="mini"><i style="width:${Math.min(100,pc)}%"></i></div></div><div><b>${pc}%</b><br><small>Ziua ${d}</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>';
+ const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');
+ if(saved){const mine=ps.find(p=>p.id===saved.id); if(mine){const d=progressDay(mine); saved.day=d; localStorage.setItem('comoara-participant',JSON.stringify(saved)); const inp=document.getElementById('myDay'); if(inp)inp.value=d;}}
+}
 async function syncChallengeFromPlan(force=false){
  const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');
  const msg=document.getElementById('challengeMsg');
@@ -171,4 +186,4 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v10-compact-corect</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v11-progres-corect</div></body></html>
