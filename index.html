@@ -68,8 +68,7 @@ async function syncChallengeFromPlan(){
  const day=done.length?Math.max(...done):0;
  if(Number(saved.day||0)===day){document.getElementById('myDay').value=day;return;}
  try{
-   const ok=await sb('rpc/update_my_progress',{method:'POST',body:JSON.stringify({p_participant_id:saved.id,p_token:saved.token,p_completed_day:day})});
-   if(!ok) return;
+   await sb('rpc/update_my_progress',{method:'POST',body:JSON.stringify({p_participant_id:saved.id,p_token:saved.token,p_completed_day:day})});
    saved.day=day; localStorage.setItem('comoara-participant',JSON.stringify(saved));
    document.getElementById('myDay').value=day;
    document.getElementById('challengeMsg').textContent=`Progres sincronizat automat: ziua ${day}. ✅`;
@@ -79,10 +78,11 @@ async function syncChallengeFromPlan(){
 
 function escapeHtml(x){return String(x).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 document.getElementById('joinChallenge').onclick=async()=>{const n=document.getElementById('joinName').value.trim(),m=document.getElementById('challengeMsg');if(n.length<2){m.textContent='Scrie un nume de cel puțin 2 caractere.';return}try{m.textContent='Te înscriem…';const r=await sb('rpc/join_challenge',{method:'POST',body:JSON.stringify({p_invite_code:activeChallenge.invite_code,p_display_name:n})});const x=r&&r[0];if(!x)throw new Error('join');localStorage.setItem('comoara-participant',JSON.stringify({challengeId:activeChallenge.id,id:x.participant_id,token:x.participant_token,day:0,name:n}));document.getElementById('myProgress').style.display='block';m.textContent='Bine ai venit, '+n+'! 🙏';document.getElementById('joinName').value='';await loadPeople()}catch(e){m.textContent='Nu am putut face înscrierea. Încearcă din nou.'}};
-document.getElementById('saveMyDay').onclick=async()=>{const s=JSON.parse(localStorage.getItem('comoara-participant')||'null'),m=document.getElementById('challengeMsg'),d=Math.max(0,Math.min(90,parseInt(document.getElementById('myDay').value)||0));if(!s){m.textContent='Mai întâi alătură-te provocării.';return}try{const ok=await sb('rpc/update_my_progress',{method:'POST',body:JSON.stringify({p_participant_id:s.id,p_token:s.token,p_completed_day:d})});if(!ok)throw new Error('save');s.day=d;localStorage.setItem('comoara-participant',JSON.stringify(s));m.textContent='Progres salvat: ziua '+d+'. ✅';await loadPeople()}catch(e){m.textContent='Nu am putut salva progresul.'}};
+document.getElementById('saveMyDay').onclick=async()=>{const s=JSON.parse(localStorage.getItem('comoara-participant')||'null'),m=document.getElementById('challengeMsg'),d=Math.max(0,Math.min(90,parseInt(document.getElementById('myDay').value)||0));if(!s){m.textContent='Mai întâi alătură-te provocării.';return}try{await sb('rpc/update_my_progress',{method:'POST',body:JSON.stringify({p_participant_id:s.id,p_token:s.token,p_completed_day:d})});s.day=d;localStorage.setItem('comoara-participant',JSON.stringify(s));m.textContent='Progres salvat: ziua '+d+'. ✅';await loadPeople()}catch(e){m.textContent='Nu am putut salva progresul.'}};
 document.getElementById('shareChallenge').onclick=()=>{const text='Alătură-te provocării „Maranata – Biblia în 90 de zile” pe Comoara Ascunsă: '+location.origin+'/#provocari';location.href='https://wa.me/?text='+encodeURIComponent(text)};
 document.addEventListener('change',()=>setTimeout(syncChallengeFromPlan,120));
 document.addEventListener('click',()=>setTimeout(syncChallengeFromPlan,180));
+document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallengeFromPlan,20));
 loadChallenge();
 </script>
 <script src="app-shell.js"></script>
