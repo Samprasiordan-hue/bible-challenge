@@ -203,3 +203,60 @@ body.app-shell .title{text-align:left}.title h2{letter-spacing:-.7px}
  .appBottomNav button{font-size:10px}.appBottomNav button span{font-size:19px}
  body.app-shell[data-page="resources"] .title,body.app-shell[data-page="quiz"] .title{margin-bottom:16px}.title h2{font-size:28px}
 }
+
+/* === Mockup-faithful v2 === */
+body.app-shell{--mock-navy:#0a2237;--mock-gold:#c89424;--mock-cream:#fff8e8;--mock-bg:#f5f6f7;color:#102c43}
+body.app-shell .top{background:var(--mock-navy)}
+body.app-shell .card{border-radius:18px;background:#fff;box-shadow:0 7px 24px rgba(10,34,55,.08)}
+body.app-shell[data-page="home"] .hero{min-height:300px;background:radial-gradient(circle at 75% 38%,rgba(246,195,91,.95) 0,rgba(101,110,87,.82) 17%,rgba(30,62,76,.92) 45%,#071d2e 82%)}
+body.app-shell[data-page="home"] .hero:after{content:"📖";font-size:125px;right:11%;bottom:18px;opacity:.88}
+body.app-shell[data-page="home"] .heroIn{padding:48px 0 42px}
+body.app-shell[data-page="home"] .hero h1{max-width:600px;font-size:42px}
+body.app-shell[data-page="home"] .hero p{max-width:520px}
+body.app-shell[data-page="home"] .dashboard{max-width:100%}
+body.app-shell #planuri .plansGrid{gap:14px}
+body.app-shell #planuri .plan{overflow:hidden;position:relative;padding-top:118px;background:linear-gradient(160deg,#eef3f4,#fff)}
+body.app-shell #planuri .plan:before{content:"";position:absolute;left:0;right:0;top:0;height:100px;background:linear-gradient(135deg,#355a69,#d9ad54 55%,#f5d782);opacity:.92}
+body.app-shell #planuri .plan:nth-child(2):before{background:linear-gradient(135deg,#274a5e,#71909b 52%,#d5b66c)}
+body.app-shell #planuri .plan:nth-child(3):before{background:linear-gradient(135deg,#203f50,#c19031 58%,#f4cf76)}
+body.app-shell #planuri .plan b{font-size:28px}
+body.app-shell #provocari .challengeHero{background:transparent;padding:8px 4px 18px}
+body.app-shell #provocari .person{border:0;border-radius:16px}
+body.app-shell #resurse .resourceCard{background:#fff;border:1px solid #e6eaed}
+body.app-shell #resurse .resourceCard summary:before{content:"📖";float:left;margin-right:10px}
+body.app-shell #cont .accountHead,#authGuest .authGrid>div{border-radius:16px}
+
+@media(max-width:760px){
+  body.app-shell{background:#f4f5f6}
+  body.app-shell .top{height:64px;position:sticky;top:0}.nav{height:64px}.brand{line-height:1.05}.brand:after{content:"Cuvântul care schimbă vieți";display:block;font:10px Arial;color:#fff;opacity:.9;position:absolute;margin:34px 0 0 57px}.brand img{border:0!important;box-shadow:none!important}
+  body.app-shell[data-page="home"] .hero{min-height:286px;border-radius:0;background:radial-gradient(circle at 65% 32%,#f2c15c 0,#7f8064 16%,#385463 38%,#0a2237 75%)}
+  body.app-shell[data-page="home"] .hero:before{background:linear-gradient(90deg,rgba(7,29,46,.72),rgba(7,29,46,.12))}
+  body.app-shell[data-page="home"] .hero:after{font-size:104px;right:7%;bottom:14px;opacity:.82}
+  body.app-shell[data-page="home"] .heroIn{padding:34px 0 24px}
+  body.app-shell[data-page="home"] .hero h1{font-size:26px;line-height:1.18;max-width:225px;margin-top:8px}
+  body.app-shell[data-page="home"] .hero h1 span{display:block}
+  body.app-shell[data-page="home"] .hero p:first-of-type{display:block!important;max-width:210px;font-size:14px;line-height:1.35;margin-top:14px}
+  body.app-shell[data-page="home"] .dashboard{margin-top:-34px;position:relative;z-index:4;padding-top:0}
+  body.app-shell[data-page="home"] .dashgrid article:first-child{background:linear-gradient(135deg,#fff8dc,#edc668);border:0;box-shadow:0 10px 30px rgba(86,61,10,.18);padding:14px 16px}
+  body.app-shell[data-page="home"] .dashgrid article:first-child .cardhead{margin:0 0 6px}.dashgrid article:first-child .cardhead h3{font-size:15px}.dashgrid article:first-child .cardhead .muted{display:none}
+  body.app-shell[data-page="home"] .daybig{font-size:17px!important;margin:3px 0}.readingbig{font-size:20px!important;margin:2px 0 8px!important}
+  body.app-shell[data-page="home"] .todaygrid .btn{background:#b57b0b;border-radius:50%;width:42px;height:42px;padding:0;font-size:0;display:grid;place-items:center}.todaygrid .btn:after{content:"›";font-size:28px;color:#fff}
+  body.app-shell[data-page="home"] .ring{display:none}
+  body.app-shell[data-page="home"] .quick{grid-template-columns:1fr 1fr!important;gap:10px;margin-top:11px}
+  body.app-shell[data-page="home"] .quick .card{min-height:94px;border-radius:16px;padding:14px 12px;text-align:left;background:#fff}
+  body.app-shell[data-page="home"] .quick .card:after{display:none}.quickIcon{font-size:24px!important}.quick h3{font-size:15px!important}.quick .muted{display:block!important;font-size:11px;line-height:1.25;margin:4px 0 0}
+  body.app-shell[data-page="home"] .midgrid{display:grid!important;grid-template-columns:1fr!important;margin-top:10px}.midgrid .notes{display:none!important}.midgrid .verse{display:grid!important;min-height:105px;border-radius:16px;padding:15px}.midgrid .verse blockquote{font-size:15px!important}
+
+  body.app-shell[data-page]:not([data-page="home"]) .dashboard{padding-top:10px}
+  body.app-shell[data-page="plans"] #planuri,body.app-shell[data-page="challenges"] #provocari,body.app-shell[data-page="bible"] #biblia-libera,body.app-shell[data-page="account"] #cont{border:0!important;box-shadow:none!important;background:#f4f5f6!important;max-height:calc(100dvh - 132px);min-height:calc(100dvh - 132px);padding:10px!important}
+  body.app-shell #planuri .cardhead,body.app-shell #biblia-libera .cardhead,body.app-shell #cont .cardhead{background:#fff;border-radius:16px;padding:14px;margin-bottom:10px}
+  body.app-shell #planuri .plansGrid{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:2px 1px 10px}
+  body.app-shell #planuri .plan{min-width:78%;scroll-snap-align:center;display:block!important;text-align:center!important;padding:112px 15px 16px!important;border:1px solid #e2e7ea;border-radius:18px}
+  body.app-shell #planuri .plan p{display:block!important;min-height:0}.plan .btn{display:inline-block!important;margin-top:8px}
+  body.app-shell #planuri .startbox{background:#fff;border-radius:16px;padding:12px;margin-top:8px}.daysWrap{background:#fff;border-radius:16px;padding:0 12px}
+  body.app-shell #provocari{background:#f4f5f6!important;color:#102c43!important}.challengeHero{background:linear-gradient(135deg,#0a263b,#174b67)!important;color:#fff;border-radius:18px!important;padding:18px!important}.challengeStats{gap:7px!important}.challengeStat{padding:10px 5px!important}.people{background:#fff;border-radius:16px;padding:8px!important}.person{background:#fff!important;border-bottom:1px solid #edf0f2!important;border-radius:0!important;box-shadow:none!important}
+  body.app-shell #cont .authGrid>div,body.app-shell #cont #authUser{background:#fff;border:0;border-radius:16px;padding:15px;box-shadow:0 5px 18px rgba(10,34,55,.06)}
+  body.app-shell[data-page="resources"] > #resurse,body.app-shell[data-page="quiz"] > #quiz{background:#f4f5f6}.resourceTools,.quizControls{background:#fff;border-radius:16px;padding:10px}.resourceCard{margin:8px 0!important;border-radius:16px!important}
+  .appBottomNav{border-radius:0!important;height:70px!important}.appBottomNav button.active{color:#b57b0b}.appBottomNav button.active span{transform:scale(1.08)}
+  .appMoreSheet{background:#0a2237!important;border-color:#29465a!important;padding:10px!important}.appMoreSheet button{background:#102d43!important;color:#fff!important;margin:6px 0;border:1px solid #29465a!important;border-radius:13px!important}
+}

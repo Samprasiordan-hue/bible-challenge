@@ -60,6 +60,8 @@
   sheet.className='appMoreSheet';
   sheet.innerHTML=`
     <button type="button" data-go="account">👤 Contul meu</button>
+    <button type="button" data-go="account">❤️ Favorite</button>
+    <button type="button" data-go="account">📝 Notițe</button>
     <button type="button" data-go="quiz">❓ Quiz creștin</button>
     <button type="button" data-go="resources">📁 Resurse utile</button>
     <button type="button" data-go="about">ℹ️ Despre proiect</button>`;
