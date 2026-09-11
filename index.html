@@ -53,17 +53,17 @@ body{padding-bottom:0!important}
 
 
 <style>
-/* v9 compact scroll: same website flow, less vertical travel */
-.dashboard{padding-top:18px;padding-bottom:18px}.dashboard>.w{display:grid;gap:18px}.card{padding:20px}.dashgrid,.midgrid{gap:14px}.hero{min-height:300px}.heroIn{padding:42px 0}.section{padding:38px 0}.plansGrid{gap:12px}.plan{padding:16px}.challengeHero{margin-top:18px;margin-bottom:18px}.people{max-height:430px;overflow:auto}.daysWrap{max-height:460px;overflow:auto}.resourceCard summary{padding:13px 15px}.resourceBody{padding:0 15px 14px}.devgrid{gap:22px}.dev img{max-height:300px;object-fit:cover;object-position:top}
-#resourceList{max-height:620px;overflow:auto;padding-right:4px}
+/* v10 echilibrat: păstrează TOT conținutul, doar reduce spațiile inutile */
+.hero{min-height:265px}.heroIn{padding:34px 0}.dashboard{padding:18px 0}.dashboard>.w{gap:14px}.card{padding:18px}.dashgrid,.midgrid{gap:12px}.section{padding:34px 0}.title{margin-bottom:14px}.plansGrid{gap:10px}.plan{padding:15px}.plan p{margin:6px 0 10px}.startbox{padding:11px}.challengeHero{margin:14px 0;padding:16px}.resourceCard{margin:7px 0}.resourceCard summary{padding:12px 14px}.resourceBody{padding:0 14px 13px}.devgrid{gap:18px}.dev img{max-height:260px;object-fit:cover;object-position:top}footer{padding-top:20px;padding-bottom:20px}
 @media(max-width:760px){
- .hero{min-height:215px!important}.heroIn{padding:26px 0 22px!important}.hero h1{font-size:30px!important;line-height:1.08!important}.hero p{margin:8px 0!important}.dashboard>.w{gap:12px!important}.card{padding:15px!important}.cardhead{margin-bottom:10px!important}
- .dashgrid{gap:10px!important}.dashgrid>article:nth-child(2){display:none!important}.midgrid{gap:10px!important}.midgrid .notes{display:none!important}.midgrid .verse{padding:14px!important}.midgrid blockquote{font-size:18px!important;margin:6px 0!important}
- .quick{display:none!important}.plansGrid{gap:8px!important}.plan{padding:13px!important}.plan p{margin:5px 0 9px!important}.startbox{padding:10px!important}.directDaysHead{margin-top:10px!important;padding:10px!important}.daysWrap{max-height:390px!important}.day{margin:6px 0!important;padding:10px!important}
- .challengeHero{margin:12px 0!important;padding:14px!important}.challengeHero>p:nth-of-type(2){margin:7px 0!important}.joinrow{gap:7px!important}.people{max-height:330px!important}
- .freeBible,.account{margin-top:12px!important}.freeBible>p{margin:7px 0!important}.accountStats{margin:10px 0!important}
- .section{padding:25px 0!important}.title{margin-bottom:12px!important}.title h2{font-size:26px!important}.title p{margin:4px 0!important}.quizControls,.resourceTools{margin-bottom:10px!important}.resourceCard{margin:7px 0!important}.resourceCard summary{padding:11px 13px!important}#resourceList{max-height:480px!important}
- .devgrid img{max-height:190px!important;width:150px!important;margin:auto!important}.devgrid{text-align:center!important;gap:12px!important}.devgrid p{margin:6px 0!important}footer{padding-top:18px!important}
+ .hero{min-height:190px!important}.heroIn{padding:22px 0 18px!important}.hero h1{font-size:29px!important;line-height:1.07!important}.hero p{margin:6px 0!important}
+ .dashboard{padding:12px 0!important}.dashboard>.w{gap:10px!important}.card{padding:13px!important}.cardhead{margin-bottom:8px!important}.dashgrid,.midgrid{gap:9px!important}
+ .section{padding:20px 0!important}.title{margin-bottom:10px!important}.title h2{font-size:25px!important}.title p{margin:3px 0!important}
+ .plansGrid{gap:7px!important}.plan{padding:12px!important}.plan p{margin:4px 0 8px!important}.startbox{padding:9px!important}.directDaysHead{margin-top:8px!important;padding:9px!important}.day{margin:5px 0!important;padding:9px!important}
+ .challengeHero{margin:9px 0!important;padding:12px!important}.challengeHero p{margin:5px 0!important}.joinrow{gap:6px!important}
+ .freeBible,.account{margin-top:9px!important}.freeBible>p{margin:5px 0!important}.accountStats{margin:8px 0!important}
+ .resourceTools,.quizControls{margin-bottom:8px!important}.resourceCard{margin:5px 0!important}.resourceCard summary{padding:10px 12px!important}.resourceBody{padding:0 12px 11px!important}
+ .devgrid{gap:10px!important}.devgrid img{max-height:180px!important;width:145px!important;margin:auto!important}.devgrid{text-align:center!important}.devgrid p{margin:5px 0!important}footer{padding:16px 10px!important}
 }
 </style>
 </head><body>
@@ -83,7 +83,7 @@ body{padding-bottom:0!important}
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
 <section class="section dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><p style="color:#e7b54f;font-weight:bold">DEVELOPER</p><h2>Iordan Sampras</h2><p>Creator Comoara Ascunsă</p><p>Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><p>📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</p></div></div></section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=9"></script><script src="account.js?v=9"></script><script>
+<script src="app.js?v=10"></script><script src="account.js?v=10"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -171,4 +171,4 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v9-compact</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v10-compact-corect</div></body></html>

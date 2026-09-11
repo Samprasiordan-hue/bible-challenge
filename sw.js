@@ -1,4 +1,4 @@
-const CACHE='comoara-compact-v9';
+const CACHE='comoara-v10-compact-corect';
 const ASSETS=['./','./index.html','./app.js?v=6','./account.js?v=6','./app-shell.css?v=6','./app-shell.js?v=6','./manifest.json','./favicon.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png','./logo-comoara-ascunsa.jpg','./iordan-sampras-final.png'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}));});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim();})());});
