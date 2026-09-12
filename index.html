@@ -115,8 +115,13 @@ body{padding-bottom:0!important}
 <style>
 .wordNoteOverlay{position:fixed;inset:0;z-index:99999;background:#06131dcc;display:flex;align-items:center;justify-content:center;padding:16px}.wordNoteModal{width:min(900px,100%);height:min(720px,94vh);display:flex;flex-direction:column;background:#f5f3ee;border:1px solid #d7b05a;border-radius:18px;overflow:hidden;box-shadow:0 25px 80px #0007}.wordNoteHead{background:#092c43;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}.wordNoteHead div{display:grid}.wordNoteHead small{color:#e4b95e;font-weight:800}.wordNoteHead b{font-size:19px}.wordNoteHead>button{border:0;background:none;color:#fff;font-size:30px}.wordToolbar{display:flex;flex-wrap:wrap;gap:5px;padding:8px 10px;background:#fff;border-bottom:1px solid #ddd}.wordToolbar button{height:36px;min-width:38px;border:1px solid #d5d0c8;background:#fff;border-radius:7px;color:#153247;font-size:15px}.wordToolbar i{width:1px;height:26px;background:#ddd;margin:5px 3px}.wordNoteEditor{flex:1;overflow:auto;margin:14px;padding:22px;background:#fff;border:1px solid #ddd;border-radius:9px;outline:none;font:17px/1.65 Georgia,serif;color:#243640}.wordNoteEditor:empty:before{content:attr(data-placeholder);color:#999}.wordNoteEditor blockquote,.savedRichNote blockquote{border-left:4px solid #d3a445;padding:7px 13px;background:#fff8e8}.wordNoteFoot{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border-top:1px solid #ddd;font-size:13px;color:#68757c}.wordNoteFoot>div{display:flex;gap:7px}.wordNoteFoot button{padding:10px 14px;border-radius:8px;font-weight:800}.wordCancel{background:#fff;border:1px solid #ccc}.wordSave{background:#0b2c42;color:#fff;border:1px solid #0b2c42}.savedRichNote{margin:8px 0;line-height:1.55}.savedRichNote h2,.savedRichNote h3{color:#0b2c42}
 @media(max-width:650px){.wordNoteOverlay{padding:0}.wordNoteModal{height:100%;max-height:none;border-radius:0}.wordToolbar{padding:6px}.wordToolbar button{min-width:33px;height:33px}.wordNoteEditor{margin:8px;padding:15px;font-size:16px}.wordNoteFoot{align-items:flex-start;flex-direction:column}.wordNoteFoot>div{width:100%}.wordNoteFoot button{flex:1}}
-</style></head><body>
-<header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a></nav></div></header>
+</style><style>
+.newsTabs{display:flex;gap:9px;margin:18px 0}.newsTabs button{border:1px solid #d8c59d;background:#fff;color:#173043;border-radius:999px;padding:10px 16px;font-weight:800}.newsTabs button.active{background:#0b2c42;color:#fff;border-color:#0b2c42}.newsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.newsCard{background:#fff;border:1px solid #e4dac7;border-radius:15px;padding:16px;box-shadow:0 4px 18px #1025360b;display:flex;flex-direction:column;gap:9px}.newsCard small{color:#a16e13;font-weight:800}.newsCard h3{font-size:17px;line-height:1.35;margin:0;color:#0b2c42}.newsCard a{margin-top:auto;color:#0b2c42;font-weight:800;text-decoration:none}.newsLoading,.newsError{grid-column:1/-1;padding:22px;background:#fff;border-radius:14px}.newsNotice{font-size:12px;color:#6d777d;margin-top:12px}
+.jcal{background:#fff;border:1px solid #e1d4bc;border-radius:18px;padding:18px;box-shadow:0 8px 30px #1025360d}.jcalHead{display:flex;align-items:center;gap:9px;margin-bottom:14px}.jcalHead h3{flex:1;margin:0;color:#0b2c42;font-size:22px;text-transform:capitalize}.jcalHead button{border:1px solid #d8c59d;background:#fff;border-radius:9px;padding:8px 12px;font-weight:800;color:#0b2c42}.jcalWeek,.jcalGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.jcalWeek b{text-align:center;padding:7px;color:#7b6847;font-size:12px}.jday{min-height:82px;border:1px solid #eee5d6;border-radius:9px;background:#fff;padding:7px;text-align:left;position:relative;color:#273944}.jday.muted{opacity:.35}.jday.today{outline:2px solid #0b2c42}.jday.holiday{background:#fff8e7;border-color:#d8ad53;cursor:pointer}.jday .num{font-weight:900}.jday .star{display:block;color:#a36c09;font-size:12px;margin-top:7px;line-height:1.15}.jcalDetails{margin-top:14px;padding:14px 16px;border-left:4px solid #d3a343;background:#fff9ec;border-radius:8px}.jcalDetails p{margin:5px 0 0}.hebcalCredit{font-size:11px;color:#7a8287;margin:10px 0 0}
+@media(max-width:760px){.newsGrid{grid-template-columns:1fr}.jcal{padding:9px}.jday{min-height:58px;padding:5px;font-size:12px}.jday .star{font-size:9px;max-height:22px;overflow:hidden}.jcalHead h3{font-size:18px}.jcalHead{flex-wrap:wrap}.jcalHead #calToday{margin-left:auto}}
+</style>
+</head><body>
+<header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a><a href="#stiri">🌍 Știri creștine</a><a href="#calendar-evreiesc">📅 Calendar</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
 <main class="dashboard"><div class="w">
 <div class="dashgrid"><article class="card"><div class="cardhead"><h3>🗓️ Lectura de azi</h3><span class="muted" id="dashPlan">Plan 90 de zile</span></div><div class="todaygrid"><div><div class="daybig" id="dashDay">Alege data</div><div class="readingbig" id="dashReading">Planul tău de citire</div><p class="muted">„Cuvântul Tău este o candelă pentru picioarele mele și o lumină pe cărarea mea.”</p><button class="btn" id="continueReading">📖 Continuă lectura →</button></div><div><div class="ring" id="progressRing"><div class="ringText"><b id="dashPct">0%</b><small>din plan citit</small></div></div><p class="muted" style="text-align:center" id="dashSummary">0 zile completate</p></div></div></article>
@@ -130,6 +135,29 @@ body{padding-bottom:0!important}
 </div></main>
 <section class="section alt" id="quiz"><div class="w"><div class="title"><h2>Quiz Creștin</h2><p>100 de întrebări • Biblie • doctrină • teologie penticostală</p></div><div class="quizControls"><select id="quizCat"><option>Toate</option><option>Biblie</option><option>Doctrină</option><option>Penticostal</option></select><select id="quizLevel"><option>Toate</option><option>Ușor</option><option>Mediu</option><option>Greu</option></select><button class="btn gold" id="quizStart">Quiz nou – 20 întrebări</button></div><div class="card" id="qb"></div></div></section>
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
+
+<section class="section" id="stiri">
+ <div class="w">
+  <div class="title"><p>ACTUALITATE</p><h2>🌍 Știri creștine</h2><span>Știri din lumea creștină și din Orientul Mijlociu, actualizate din surse externe.</span></div>
+  <div class="newsTabs"><button class="active" data-news="world">🌍 Din lume</button><button data-news="middleeast">🕊️ Orientul Mijlociu</button></div>
+  <div id="christianNews" class="newsGrid"><div class="newsLoading">Se încarcă știrile…</div></div>
+  <p class="newsNotice">Afișăm titlul, data și sursa. Articolul complet se deschide pe site-ul publicației originale.</p>
+ </div>
+</section>
+
+<section class="section alt" id="calendar-evreiesc">
+ <div class="w">
+  <div class="title"><p>CALENDAR</p><h2>📅 Calendar & sărbători evreiești</h2><span>Calendar gregorian cu sărbători evreiești, posturi și zile importante.</span></div>
+  <div class="jcal">
+   <div class="jcalHead"><button id="calPrev">‹</button><h3 id="calTitle"></h3><button id="calNext">›</button><button id="calToday">Astăzi</button></div>
+   <div class="jcalWeek"><b>Lu</b><b>Ma</b><b>Mi</b><b>Jo</b><b>Vi</b><b>Sâ</b><b>Du</b></div>
+   <div id="jcalGrid" class="jcalGrid"></div>
+   <div id="jcalDetails" class="jcalDetails"><b>✡️ Sărbătorile evreiești</b><p>Apasă pe o zi marcată cu ✡️ pentru detalii.</p></div>
+   <p class="hebcalCredit">Date calendaristice: Hebcal.com — CC BY 4.0.</p>
+  </div>
+ </div>
+</section>
+
 <section class="section dev" id="despre">
   <div class="w developerPosterWrap">
     <div class="title developerPosterTitle">
@@ -140,7 +168,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=23"></script><script src="account.js?v=23"></script><script>
+<script src="app.js?v=24"></script><script src="account.js?v=24"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -236,4 +264,58 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v14-sync-bife</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v14-sync-bife</div><script>
+(function(){
+ const newsBox=document.getElementById('christianNews');
+ const feeds={
+  world:'https://news.google.com/rss/search?q=Christian+OR+Christianity+persecution+church&hl=en&gl=US&ceid=US:en',
+  middleeast:'https://news.google.com/rss/search?q=Christians+Middle+East+Israel+Lebanon+Syria+Iraq&hl=en&gl=US&ceid=US:en'
+ };
+ const esc=x=>String(x||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ async function loadNews(kind){
+  newsBox.innerHTML='<div class="newsLoading">Se încarcă știrile…</div>';
+  try{
+   const u='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feeds[kind]);
+   const r=await fetch(u,{cache:'no-store'}); if(!r.ok)throw Error();
+   const d=await r.json(); if(!d.items?.length)throw Error();
+   newsBox.innerHTML=d.items.slice(0,9).map(x=>{
+    const source=(x.author||'Sursă externă').replace(/^.* - /,'');
+    const date=x.pubDate?new Date(x.pubDate).toLocaleDateString('ro-RO',{day:'2-digit',month:'short',year:'numeric'}):'';
+    return `<article class="newsCard"><small>${esc(source)} · ${esc(date)}</small><h3>${esc(x.title)}</h3><a href="${esc(x.link)}" target="_blank" rel="noopener noreferrer">Citește articolul →</a></article>`
+   }).join('');
+  }catch(e){newsBox.innerHTML='<div class="newsError"><b>Știrile nu au putut fi încărcate momentan.</b><br>Încearcă din nou puțin mai târziu.</div>'}
+ }
+ document.querySelectorAll('[data-news]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-news]').forEach(x=>x.classList.toggle('active',x===b));loadNews(b.dataset.news)});
+ loadNews('world');
+
+ const months=['ianuarie','februarie','martie','aprilie','mai','iunie','iulie','august','septembrie','octombrie','noiembrie','decembrie'];
+ let view=new Date();view=new Date(view.getFullYear(),view.getMonth(),1);let events=[];
+ const grid=document.getElementById('jcalGrid'),title=document.getElementById('calTitle'),details=document.getElementById('jcalDetails');
+ async function loadCal(){
+  title.textContent=months[view.getMonth()]+' '+view.getFullYear();
+  try{
+   const y=view.getFullYear();
+   const url=`https://www.hebcal.com/hebcal?v=1&cfg=json&year=${y}&maj=on&min=on&mf=on&mod=on&nx=on&ss=on&c=off&geo=none&M=off&s=off`;
+   const r=await fetch(url,{cache:'no-store'});const d=await r.json();events=d.items||[];
+  }catch(e){events=[]}
+  draw();
+ }
+ function key(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+ function draw(){
+  grid.innerHTML='';const y=view.getFullYear(),m=view.getMonth(),first=new Date(y,m,1),offset=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate(),today=key(new Date());
+  for(let i=0;i<offset;i++){const x=document.createElement('div');x.className='jday muted';grid.appendChild(x)}
+  for(let d=1;d<=days;d++){
+   const dt=new Date(y,m,d),k=key(dt),ev=events.filter(e=>String(e.date).slice(0,10)===k);
+   const b=document.createElement('button');b.className='jday'+(k===today?' today':'')+(ev.length?' holiday':'');
+   b.innerHTML=`<span class="num">${d}</span>${ev.length?`<span class="star">✡️ ${esc(ev[0].title)}${ev.length>1?' +'+(ev.length-1):''}</span>`:''}`;
+   if(ev.length)b.onclick=()=>{details.innerHTML=`<b>✡️ ${d} ${months[m]} ${y}</b>`+ev.map(e=>`<p><strong>${esc(e.title)}</strong>${e.hebrew?` · ${esc(e.hebrew)}`:''}</p>`).join('')};
+   grid.appendChild(b)
+  }
+ }
+ document.getElementById('calPrev').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()-1,1);loadCal()};
+ document.getElementById('calNext').onclick=()=>{view=new Date(view.getFullYear(),view.getMonth()+1,1);loadCal()};
+ document.getElementById('calToday').onclick=()=>{const n=new Date();view=new Date(n.getFullYear(),n.getMonth(),1);loadCal()};
+ loadCal();
+})();
+</script>
+</body></html>
