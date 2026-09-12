@@ -87,6 +87,26 @@ body{padding-bottom:0!important}
 }
 </style>
 
+
+<style>
+/* V15 — comentarii biblice */
+.verse-comment-btn{margin-left:8px;border:0;background:#f3ead7;color:#08283d;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800;cursor:pointer}
+.commentary-backdrop{position:fixed;inset:0;background:rgba(3,18,30,.55);z-index:9998;display:none}
+.commentary-panel{position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(105%);width:min(760px,100%);max-height:82vh;overflow:auto;background:#fffaf0;border-radius:24px 24px 0 0;z-index:9999;box-shadow:0 -20px 60px rgba(0,0,0,.25);transition:.25s ease;padding:20px}
+.commentary-panel.open{transform:translateX(-50%) translateY(0)}
+.commentary-backdrop.open{display:block}
+.commentary-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;position:sticky;top:-20px;background:#fffaf0;padding:12px 0;z-index:2}
+.commentary-head h3{margin:0;color:#08283d}
+.commentary-close{border:0;background:#08283d;color:white;border-radius:50%;width:36px;height:36px;font-size:18px}
+.commentary-tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}
+.commentary-tab{white-space:nowrap;border:1px solid #d7c6a3;background:white;color:#08283d;border-radius:999px;padding:8px 11px;font-weight:700}
+.commentary-tab.active{background:#c99024;color:white;border-color:#c99024}
+.commentary-card{background:white;border:1px solid #eadfc9;border-radius:16px;padding:15px;margin-bottom:12px;color:#263542;line-height:1.55}
+.commentary-card h4{margin:0 0 7px;color:#08283d}
+.commentary-empty{padding:18px;text-align:center;color:#68737d}
+@media(max-width:600px){.commentary-panel{max-height:88vh;padding:16px}.verse-comment-btn{padding:4px 7px}}
+</style>
+
 </head><body>
 <header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
@@ -200,4 +220,92 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v14-sync-bife</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v15-comentarii</div>
+<div id="commentaryBackdrop" class="commentary-backdrop"></div>
+<aside id="commentaryPanel" class="commentary-panel" aria-hidden="true">
+  <div class="commentary-head">
+    <div><small>COMOARA ASCUNSĂ · STUDIU</small><h3 id="commentaryTitle">Comentarii biblice</h3></div>
+    <button id="commentaryClose" class="commentary-close" aria-label="Închide">×</button>
+  </div>
+  <div class="commentary-tabs" id="commentaryTabs"></div>
+  <div id="commentaryBody"></div>
+</aside>
+
+
+<script>
+(()=>{
+ const categories=[
+  ['explicatie','Explicație'],
+  ['penticostal','Perspectivă penticostală'],
+  ['context','Context'],
+  ['doctrina','Doctrină'],
+  ['predica','Aplicație pentru predică']
+ ];
+ const panel=document.getElementById('commentaryPanel'),back=document.getElementById('commentaryBackdrop'),
+ title=document.getElementById('commentaryTitle'),tabs=document.getElementById('commentaryTabs'),body=document.getElementById('commentaryBody');
+ let current=null, active='explicatie';
+
+ // Primele note editoriale originale. Sistemul este pregătit să primească ulterior o bibliotecă mult mai mare.
+ const notes={
+  'Faptele Apostolilor|2|4':{
+   explicatie:'Versetul descrie împlinirea promisiunii lui Isus privind venirea Duhului Sfânt. Accentul textului cade pe lucrarea Duhului, care îi umple pe ucenici și le dă capacitatea de a vorbi în alte limbi.',
+   penticostal:'În lectura penticostală clasică, acest pasaj este fundamental pentru doctrina botezului cu Duhul Sfânt și pentru înțelegerea vorbirii în alte limbi ca semn asociat experienței de la Cincizecime.',
+   context:'Evenimentul are loc la Ierusalim, în ziua Cincizecimii, când erau prezenți iudei din numeroase regiuni. Limbile vorbite devin astfel și un semn public pentru cei adunați.',
+   doctrina:'Pasajul trebuie citit împreună cu Faptele 1:4–8, 2:1–18, 10:44–48 și 19:1–7 când este studiată lucrarea Duhului Sfânt în Faptele Apostolilor.',
+   predica:'Idei de dezvoltare: promisiunea lui Dumnezeu se împlinește; puterea vine de la Duhul Sfânt; experiența spirituală conduce spre mărturie și misiune.'
+  },
+  'Ioan|3|16':{
+   explicatie:'Versetul rezumă vestea bună a mântuirii: inițiativa aparține dragostei lui Dumnezeu, darul este Fiul, iar răspunsul cerut omului este credința.',
+   penticostal:'Perspectiva penticostală pune accent pe chemarea personală la credință, nașterea din nou și viața transformată prin lucrarea Duhului Sfânt.',
+   context:'Afirmația apare în contextul discuției despre nașterea din nou și despre Fiul Omului, în Ioan 3.',
+   doctrina:'Teme centrale: dragostea lui Dumnezeu, întruparea și misiunea Fiului, credința, mântuirea și viața veșnică.',
+   predica:'O schiță simplă: dragostea care dă; Fiul care mântuiește; credința care primește; viața veșnică oferită celui ce crede.'
+  }
+ };
+
+ function refKey(book,chapter,verse){return `${book}|${chapter}|${verse}`}
+ function render(){
+   if(!current)return;
+   title.textContent=`${current.book} ${current.chapter}:${current.verse}`;
+   tabs.innerHTML=categories.map(([k,l])=>`<button class="commentary-tab ${active===k?'active':''}" data-cat="${k}">${l}</button>`).join('');
+   const item=notes[refKey(current.book,current.chapter,current.verse)];
+   const label=categories.find(x=>x[0]===active)?.[1]||'Comentariu';
+   if(item&&item[active]){
+     body.innerHTML=`<div class="commentary-card"><h4>${label}</h4><div>${item[active]}</div></div><div class="commentary-card"><small><b>Notă:</b> material editorial original pentru studiu biblic. Nu reprezintă un citat atribuit unui autor.</small></div>`;
+   }else{
+     body.innerHTML=`<div class="commentary-empty"><b>${label}</b><br>Comentariul pentru acest verset va fi adăugat în biblioteca de studiu.</div>`;
+   }
+   tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()});
+ }
+ function openComment(book,chapter,verse){
+   current={book,chapter,verse};active='explicatie';render();
+   back.classList.add('open');panel.classList.add('open');panel.setAttribute('aria-hidden','false');
+ }
+ function close(){back.classList.remove('open');panel.classList.remove('open');panel.setAttribute('aria-hidden','true')}
+ document.getElementById('commentaryClose').onclick=close;back.onclick=close;
+
+ // Detectează versetele din cititor și adaugă butonul fără a modifica funcțiile Favorite/Notițe.
+ function enhance(){
+   const reader=document.querySelector('#bibleText,#readerText,#appBibleText,.bible-text,.reader-text')||document.body;
+   reader.querySelectorAll('[data-verse], .verse').forEach(el=>{
+     if(el.querySelector('.verse-comment-btn'))return;
+     let verse=el.dataset.verse||el.getAttribute('data-v')||'';
+     if(!verse){
+       const m=(el.textContent||'').trim().match(/^(\d{1,3})[.\s]/); if(m)verse=m[1];
+     }
+     if(!verse)return;
+     const book=(window.currentBibleBook||document.querySelector('#bookSelect')?.value||document.querySelector('#appBook')?.value||'').trim();
+     const chapter=Number(window.currentBibleChapter||document.querySelector('#chapterSelect')?.value||document.querySelector('#appChapter')?.value||0);
+     if(!book||!chapter)return;
+     const b=document.createElement('button');b.className='verse-comment-btn';b.type='button';b.textContent='💬 Comentarii';
+     b.onclick=(e)=>{e.preventDefault();e.stopPropagation();openComment(book,chapter,Number(verse))};
+     el.appendChild(b);
+   });
+ }
+ new MutationObserver(()=>enhance()).observe(document.body,{subtree:true,childList:true});
+ setInterval(enhance,1500);
+ window.openBibleCommentary=openComment;
+})();
+</script>
+
+</body></html>
