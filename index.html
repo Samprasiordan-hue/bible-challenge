@@ -89,16 +89,16 @@ body{padding-bottom:0!important}
 
 
 <style>
-.chapterStudies{margin:28px 0 8px;padding:18px;border-top:4px solid #c99024;background:#f8f2e5;border-radius:18px}
-.studyHeading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
-.studyHeading small{font-weight:900;letter-spacing:.08em;color:#9a6b15}.studyHeading h3{margin:4px 0;color:#08283d}
-.studyHeading span{white-space:nowrap;background:#08283d;color:#fff;border-radius:999px;padding:7px 10px;font-size:12px}
-.studyCard{background:#fff;border:1px solid #e2d5bd;border-radius:14px;padding:15px;margin:11px 0}
-.studyCard h4{margin:5px 0 3px;color:#08283d;font-size:18px}.studyCard p{margin:9px 0 0;line-height:1.6;color:#2b3b45}
-.studyType{display:inline-block;background:#f0e3c8;color:#805812;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900}
-.studyAuthor{font-size:13px;font-weight:800;color:#68747c}.studyNotice,.studyEmpty{margin-top:12px;padding:11px;border-radius:12px;background:#fffaf0;color:#5d6870;font-size:13px;line-height:1.5}
-.savedRichNote{line-height:1.55;margin:8px 0}
-@media(max-width:600px){.chapterStudies{margin:22px 0 6px;padding:14px}.studyHeading{display:block}.studyHeading span{display:inline-block;margin-top:6px}}
+.readerModeTabs{display:flex;gap:8px;padding:10px 0 14px;position:sticky;top:0;background:#fff;z-index:4;border-bottom:1px solid #eee2cf}
+.readerModeTabs button{border:1px solid #d9ccb6;background:#fff;color:#173043;border-radius:999px;padding:10px 15px;font-weight:800;cursor:pointer}
+.readerModeTabs button.active{background:#0b2c42;color:#fff;border-color:#0b2c42}
+.studyIntro{padding:18px 4px 8px}.studyIntro small{color:#a57419;font-weight:900;letter-spacing:.08em}.studyIntro h3{font-size:28px;color:#0b2c42;margin:4px 0}.studyIntro p{color:#69757d}
+.studyWork{background:#fff;border:1px solid #e2d6c1;border-radius:15px;margin:12px 0;overflow:hidden;box-shadow:0 3px 12px #1723310a}
+.studyWork summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:15px 16px;background:#fffaf0}.studyWork summary::-webkit-details-marker{display:none}
+.studyWork summary span{display:grid;gap:3px}.studyWork summary small{color:#a57419;font-size:11px;font-weight:900;text-transform:uppercase}.studyWork summary b{color:#0b2c42;font-size:17px}.studyWork summary em{font-style:normal;color:#6c777e;font-size:13px}.studyWork summary strong{font-size:22px;color:#b17a18}
+.studyWork[open] summary{border-bottom:1px solid #eadfcd}.studyWork[open] summary strong{transform:rotate(45deg)}.studyWorkBody{padding:16px 18px}.studyWorkBody p{margin:0;line-height:1.72;color:#273a46;font-size:16px}
+.noStudy{margin:18px 0;padding:18px;border:1px dashed #cdbb9d;background:#fffaf0;border-radius:14px;color:#53616a}.noStudy p{margin-bottom:0}
+@media(max-width:700px){.readerModeTabs{padding:8px 0 11px}.readerModeTabs button{flex:1;padding:9px 7px;font-size:13px}.studyIntro h3{font-size:23px}.studyWork summary{padding:13px}.studyWorkBody{padding:14px}}
 </style>
 
 </head><body>
@@ -118,7 +118,7 @@ body{padding-bottom:0!important}
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
 <section class="section dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><p style="color:#e7b54f;font-weight:bold">DEVELOPER</p><h2>Iordan Sampras</h2><p>Creator Comoara Ascunsă</p><p>Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><p>📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</p></div></div></section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=18"></script><script src="account.js?v=18"></script><script>
+<script src="app.js?v=19"></script><script src="account.js?v=19"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -131,7 +131,7 @@ body{padding-bottom:0!important}
   document.getElementById('continueReading').onclick=()=>{const idx=Math.max(0,Math.min(total-1,day-1)); if(typeof openReader==='function'&&start)openReader(idx); else document.getElementById('planuri').scrollIntoView()};
  }
  setTimeout(updateDash,80); document.addEventListener('change',()=>setTimeout(updateDash,80)); document.addEventListener('click',()=>setTimeout(updateDash,100));
- if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=18').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
+ if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=19').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
 })();
 </script>
 <script>
@@ -214,4 +214,4 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v18-comentarii-fix</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v14-sync-bife</div></body></html>
