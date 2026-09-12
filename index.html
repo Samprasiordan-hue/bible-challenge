@@ -89,22 +89,16 @@ body{padding-bottom:0!important}
 
 
 <style>
-/* V15 — comentarii biblice */
-.verse-comment-btn{margin-left:8px;border:0;background:#f3ead7;color:#08283d;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:800;cursor:pointer}
-.commentary-backdrop{position:fixed;inset:0;background:rgba(3,18,30,.55);z-index:9998;display:none}
-.commentary-panel{position:fixed;left:50%;bottom:0;transform:translateX(-50%) translateY(105%);width:min(760px,100%);max-height:82vh;overflow:auto;background:#fffaf0;border-radius:24px 24px 0 0;z-index:9999;box-shadow:0 -20px 60px rgba(0,0,0,.25);transition:.25s ease;padding:20px}
-.commentary-panel.open{transform:translateX(-50%) translateY(0)}
-.commentary-backdrop.open{display:block}
-.commentary-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;position:sticky;top:-20px;background:#fffaf0;padding:12px 0;z-index:2}
-.commentary-head h3{margin:0;color:#08283d}
-.commentary-close{border:0;background:#08283d;color:white;border-radius:50%;width:36px;height:36px;font-size:18px}
-.commentary-tabs{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}
-.commentary-tab{white-space:nowrap;border:1px solid #d7c6a3;background:white;color:#08283d;border-radius:999px;padding:8px 11px;font-weight:700}
-.commentary-tab.active{background:#c99024;color:white;border-color:#c99024}
-.commentary-card{background:white;border:1px solid #eadfc9;border-radius:16px;padding:15px;margin-bottom:12px;color:#263542;line-height:1.55}
-.commentary-card h4{margin:0 0 7px;color:#08283d}
-.commentary-empty{padding:18px;text-align:center;color:#68737d}
-@media(max-width:600px){.commentary-panel{max-height:88vh;padding:16px}.verse-comment-btn{padding:4px 7px}}
+.chapterStudies{margin:28px 0 8px;padding:18px;border-top:4px solid #c99024;background:#f8f2e5;border-radius:18px}
+.studyHeading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.studyHeading small{font-weight:900;letter-spacing:.08em;color:#9a6b15}.studyHeading h3{margin:4px 0;color:#08283d}
+.studyHeading span{white-space:nowrap;background:#08283d;color:#fff;border-radius:999px;padding:7px 10px;font-size:12px}
+.studyCard{background:#fff;border:1px solid #e2d5bd;border-radius:14px;padding:15px;margin:11px 0}
+.studyCard h4{margin:5px 0 3px;color:#08283d;font-size:18px}.studyCard p{margin:9px 0 0;line-height:1.6;color:#2b3b45}
+.studyType{display:inline-block;background:#f0e3c8;color:#805812;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:900}
+.studyAuthor{font-size:13px;font-weight:800;color:#68747c}.studyNotice,.studyEmpty{margin-top:12px;padding:11px;border-radius:12px;background:#fffaf0;color:#5d6870;font-size:13px;line-height:1.5}
+.savedRichNote{line-height:1.55;margin:8px 0}
+@media(max-width:600px){.chapterStudies{margin:22px 0 6px;padding:14px}.studyHeading{display:block}.studyHeading span{display:inline-block;margin-top:6px}}
 </style>
 
 </head><body>
@@ -113,7 +107,7 @@ body{padding-bottom:0!important}
 <main class="dashboard"><div class="w">
 <div class="dashgrid"><article class="card"><div class="cardhead"><h3>🗓️ Lectura de azi</h3><span class="muted" id="dashPlan">Plan 90 de zile</span></div><div class="todaygrid"><div><div class="daybig" id="dashDay">Alege data</div><div class="readingbig" id="dashReading">Planul tău de citire</div><p class="muted">„Cuvântul Tău este o candelă pentru picioarele mele și o lumină pe cărarea mea.”</p><button class="btn" id="continueReading">📖 Continuă lectura →</button></div><div><div class="ring" id="progressRing"><div class="ringText"><b id="dashPct">0%</b><small>din plan citit</small></div></div><p class="muted" style="text-align:center" id="dashSummary">0 zile completate</p></div></div></article>
 <article class="card"><div class="cardhead"><h3>🔥 Seria ta de zile</h3></div><div><span class="streaknum" id="streakNum">0</span> <b>zile la rând</b><p class="muted">Continuă! Fiecare zi în Cuvânt contează.</p><div class="week" id="weekDots"></div></div></article></div>
-<div class="midgrid"><article class="card verse"><div><div class="cardhead"><h3>📖 Versetul zilei</h3></div><blockquote>„Încrede-te în Domnul din toată inima ta și nu te sprijini pe înțelepciunea ta!”</blockquote><p><b>Proverbele 3:5</b></p></div></article><article class="card notes"><div class="cardhead"><h3>✎ Notițe personale</h3></div><textarea id="personalNotes" placeholder="Ce mi-a vorbit Dumnezeu astăzi?"></textarea><p class="muted">Notă rapidă pe acest dispozitiv. Pentru notițe complete cu <b>titluri, bold, italic, liste și citate</b>, folosește butonul 📝 de lângă un verset.</p></article></div>
+<div class="midgrid"><article class="card verse"><div><div class="cardhead"><h3>📖 Versetul zilei</h3></div><blockquote>„Încrede-te în Domnul din toată inima ta și nu te sprijini pe înțelepciunea ta!”</blockquote><p><b>Proverbele 3:5</b></p></div></article><article class="card notes"><div class="cardhead"><h3>✎ Notițe personale</h3></div><textarea id="personalNotes" placeholder="Ce mi-a vorbit Dumnezeu astăzi?"></textarea><p class="muted">Notițele tale se salvează automat pe acest dispozitiv.</p></article></div>
 <section class="card plans" id="planuri"><div class="cardhead"><h3>🎯 Alege planul tău</h3><span class="muted">40 • 60 • 90 zile</span></div><div class="plansGrid"><div class="card plan" data-p="90"><b>🗓️ Plan 90 de zile</b><p>Citirea întregii Biblii într-un ritm constant</p><button class="btn" type="button">Alege planul</button></div><div class="card plan" data-p="60"><b>🗓️ Plan 60 de zile</b><p>Un ritm echilibrat și susținut</p><button class="btn" type="button">Alege planul</button></div><div class="card plan" data-p="40"><b>🗓️ Plan 40 de zile</b><p>Provocarea intensivă</p><button class="btn" type="button">Alege planul</button></div></div><div class="startbox"><label><b>Data de început:</b> <input id="start" type="date"></label><div class="todayLegacy" id="today"></div></div><div style="display:flex;justify-content:space-between;margin:15px 0 7px"><b>Progres</b><b id="pct">0%</b></div><div class="bar"><i id="bar"></i></div><p id="summary"></p><div class="directDaysHead"><b>Alege ziua și deschide direct Biblia</b><span class="muted">Apasă pe orice zi</span></div><div class="daysWrap directDays" id="days"></div></section>
 <section id="provocari" class="challengeHero"><p style="color:#f4c65e;font-weight:bold;margin:0">👥 CITEȘTE ÎMPREUNĂ</p><h2>Maranata – Biblia în 90 de zile</h2><p>Alătură-te provocării, citește zilnic și urmărește progresul comunității.</p><div class="challengeStats"><div class="challengeStat"><b id="chPeople">—</b><span>participanți</span></div><div class="challengeStat"><b>90</b><span>zile</span></div></div><div class="joinrow"><input id="joinName" maxlength="60" placeholder="Scrie numele tău"><button class="btn gold" id="joinChallenge">Mă alătur</button><button class="btn sharebtn" id="shareChallenge">Trimite pe WhatsApp</button></div><div id="challengeMsg" class="challengeMsg"></div><div id="myProgress" class="myprogress"><b>Progresul meu:</b> <span id="myDayText">0 zile citite din 90</span><br><small>Se sincronizează automat cu zilele bifate în planul de 90 de zile.</small></div><div class="people" id="peopleList"><div class="loading">Se încarcă participanții…</div></div></section>
 <div class="quick" id="biblia"><a class="card" href="#biblia-libera"><div class="quickIcon">📚</div><h3>Biblia</h3><p class="muted">Citește liber orice carte și capitol, chiar fără plan.</p></a><a class="card" href="#resurse"><div class="quickIcon">💡</div><h3>Resurse utile</h3><p class="muted">Studii, schițe, mesaje și materiale creștine.</p></a><a class="card" href="#planuri"><div class="quickIcon">🏆</div><h3>Progresul tău</h3><p class="muted">Urmărește zilnic cât ai parcurs din provocare.</p></a></div>
@@ -124,7 +118,7 @@ body{padding-bottom:0!important}
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
 <section class="section dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><p style="color:#e7b54f;font-weight:bold">DEVELOPER</p><h2>Iordan Sampras</h2><p>Creator Comoara Ascunsă</p><p>Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><p>📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</p></div></div></section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=16"></script><script src="account.js?v=16"></script><script>
+<script src="app.js?v=18"></script><script src="account.js?v=18"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -137,7 +131,7 @@ body{padding-bottom:0!important}
   document.getElementById('continueReading').onclick=()=>{const idx=Math.max(0,Math.min(total-1,day-1)); if(typeof openReader==='function'&&start)openReader(idx); else document.getElementById('planuri').scrollIntoView()};
  }
  setTimeout(updateDash,80); document.addEventListener('change',()=>setTimeout(updateDash,80)); document.addEventListener('click',()=>setTimeout(updateDash,100));
- if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=16').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
+ if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=18').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
 })();
 </script>
 <script>
@@ -220,92 +214,4 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v16-comentarii-notite</div>
-<div id="commentaryBackdrop" class="commentary-backdrop"></div>
-<aside id="commentaryPanel" class="commentary-panel" aria-hidden="true">
-  <div class="commentary-head">
-    <div><small>COMOARA ASCUNSĂ · STUDIU</small><h3 id="commentaryTitle">Comentarii biblice</h3></div>
-    <button id="commentaryClose" class="commentary-close" aria-label="Închide">×</button>
-  </div>
-  <div class="commentary-tabs" id="commentaryTabs"></div>
-  <div id="commentaryBody"></div>
-</aside>
-
-
-<script>
-(()=>{
- const categories=[
-  ['explicatie','Explicație'],
-  ['penticostal','Perspectivă penticostală'],
-  ['context','Context'],
-  ['doctrina','Doctrină'],
-  ['predica','Aplicație pentru predică']
- ];
- const panel=document.getElementById('commentaryPanel'),back=document.getElementById('commentaryBackdrop'),
- title=document.getElementById('commentaryTitle'),tabs=document.getElementById('commentaryTabs'),body=document.getElementById('commentaryBody');
- let current=null, active='explicatie';
-
- // Primele note editoriale originale. Sistemul este pregătit să primească ulterior o bibliotecă mult mai mare.
- const notes={
-  'Faptele Apostolilor|2|4':{
-   explicatie:'Versetul descrie împlinirea promisiunii lui Isus privind venirea Duhului Sfânt. Accentul textului cade pe lucrarea Duhului, care îi umple pe ucenici și le dă capacitatea de a vorbi în alte limbi.',
-   penticostal:'În lectura penticostală clasică, acest pasaj este fundamental pentru doctrina botezului cu Duhul Sfânt și pentru înțelegerea vorbirii în alte limbi ca semn asociat experienței de la Cincizecime.',
-   context:'Evenimentul are loc la Ierusalim, în ziua Cincizecimii, când erau prezenți iudei din numeroase regiuni. Limbile vorbite devin astfel și un semn public pentru cei adunați.',
-   doctrina:'Pasajul trebuie citit împreună cu Faptele 1:4–8, 2:1–18, 10:44–48 și 19:1–7 când este studiată lucrarea Duhului Sfânt în Faptele Apostolilor.',
-   predica:'Idei de dezvoltare: promisiunea lui Dumnezeu se împlinește; puterea vine de la Duhul Sfânt; experiența spirituală conduce spre mărturie și misiune.'
-  },
-  'Ioan|3|16':{
-   explicatie:'Versetul rezumă vestea bună a mântuirii: inițiativa aparține dragostei lui Dumnezeu, darul este Fiul, iar răspunsul cerut omului este credința.',
-   penticostal:'Perspectiva penticostală pune accent pe chemarea personală la credință, nașterea din nou și viața transformată prin lucrarea Duhului Sfânt.',
-   context:'Afirmația apare în contextul discuției despre nașterea din nou și despre Fiul Omului, în Ioan 3.',
-   doctrina:'Teme centrale: dragostea lui Dumnezeu, întruparea și misiunea Fiului, credința, mântuirea și viața veșnică.',
-   predica:'O schiță simplă: dragostea care dă; Fiul care mântuiește; credința care primește; viața veșnică oferită celui ce crede.'
-  }
- };
-
- function refKey(book,chapter,verse){return `${book}|${chapter}|${verse}`}
- function render(){
-   if(!current)return;
-   title.textContent=`${current.book} ${current.chapter}:${current.verse}`;
-   tabs.innerHTML=categories.map(([k,l])=>`<button class="commentary-tab ${active===k?'active':''}" data-cat="${k}">${l}</button>`).join('');
-   const item=notes[refKey(current.book,current.chapter,current.verse)];
-   const label=categories.find(x=>x[0]===active)?.[1]||'Comentariu';
-   if(item&&item[active]){
-     body.innerHTML=`<div class="commentary-card"><h4>${label}</h4><div>${item[active]}</div></div><div class="commentary-card"><small><b>Notă:</b> material editorial original pentru studiu biblic. Nu reprezintă un citat atribuit unui autor.</small></div>`;
-   }else{
-     body.innerHTML=`<div class="commentary-empty"><b>${label}</b><br>Comentariul pentru acest verset va fi adăugat în biblioteca de studiu.</div>`;
-   }
-   tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.cat;render()});
- }
- function openComment(book,chapter,verse){
-   current={book,chapter,verse};active='explicatie';render();
-   back.classList.add('open');panel.classList.add('open');panel.setAttribute('aria-hidden','false');
- }
- function close(){back.classList.remove('open');panel.classList.remove('open');panel.setAttribute('aria-hidden','true')}
- document.getElementById('commentaryClose').onclick=close;back.onclick=close;
-
- // Detectează versetele din cititor și adaugă butonul fără a modifica funcțiile Favorite/Notițe.
- function enhance(){
-   const reader=document.querySelector('#bibleText,#readerText,#appBibleText,.bible-text,.reader-text')||document.body;
-   reader.querySelectorAll('[data-verse], .verse').forEach(el=>{
-     if(el.querySelector('.verse-comment-btn'))return;
-     let verse=el.dataset.verse||el.getAttribute('data-v')||'';
-     if(!verse){
-       const m=(el.textContent||'').trim().match(/^(\d{1,3})[.\s]/); if(m)verse=m[1];
-     }
-     if(!verse)return;
-     const book=(window.currentBibleBook||document.querySelector('#bookSelect')?.value||document.querySelector('#appBook')?.value||'').trim();
-     const chapter=Number(window.currentBibleChapter||document.querySelector('#chapterSelect')?.value||document.querySelector('#appChapter')?.value||0);
-     if(!book||!chapter)return;
-     const b=document.createElement('button');b.className='verse-comment-btn';b.type='button';b.textContent='💬 Comentarii';
-     b.onclick=(e)=>{e.preventDefault();e.stopPropagation();openComment(book,chapter,Number(verse))};
-     el.appendChild(b);
-   });
- }
- new MutationObserver(()=>enhance()).observe(document.body,{subtree:true,childList:true});
- setInterval(enhance,1500);
- window.openBibleCommentary=openComment;
-})();
-</script>
-
-</body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v18-comentarii-fix</div></body></html>
