@@ -27,36 +27,38 @@ $('signupBtn').onclick=signup;$('loginBtn').onclick=login;$('logoutBtn').onclick
 (function(){
  const OT=['Geneza','Exodul','Leviticul','Numeri','Deuteronomul','Iosua','Judecători','Rut','1 Samuel','2 Samuel','1 Împărați','2 Împărați','1 Cronici','2 Cronici','Ezra','Neemia','Estera','Iov','Psalmii','Proverbele','Eclesiastul','Cântarea Cântărilor','Isaia','Ieremia','Plângerile lui Ieremia','Ezechiel','Daniel','Osea','Ioel','Amos','Obadia','Iona','Mica','Naum','Habacuc','Țefania','Hagai','Zaharia','Maleahi'];
  const NT=['Matei','Marcu','Luca','Ioan','Faptele Apostolilor','Romani','1 Corinteni','2 Corinteni','Galateni','Efeseni','Filipeni','Coloseni','1 Tesaloniceni','2 Tesaloniceni','1 Timotei','2 Timotei','Tit','Filimon','Evrei','Iacov','1 Petru','2 Petru','1 Ioan','2 Ioan','3 Ioan','Iuda','Apocalipsa'];
- const STUDIES={
-  'Geneza|1':[
-   {a:'Comoara Ascunsă',t:'Creația și omul după chipul lui Dumnezeu',tag:'Comentariu penticostal',x:'Capitolul Îl prezintă pe Dumnezeu drept Creator suveran. Cuvântul Său aduce ordine și viață, iar omul este creat după chipul lui Dumnezeu, cu demnitate și responsabilitate înaintea Creatorului.'}
-  ],
-  'Ioan|3':[
-   {a:'Comoara Ascunsă',t:'Nașterea din nou',tag:'Comentariu penticostal',x:'Isus îi arată lui Nicodim că apartenența religioasă nu înlocuiește transformarea lăuntrică. Nașterea din nou este legată de lucrarea Duhului, iar centrul capitolului este credința în Fiul trimis de Dumnezeu pentru mântuire.'},
-   {a:'French L. Arrington',t:'Mântuirea și viața în Duhul',tag:'Pentru aprofundare',x:'Autor penticostal recomandat pentru aprofundarea relației dintre mântuire, lucrarea Duhului și viața creștină. Aceasta este o recomandare bibliografică, nu text reprodus din lucrarea autorului.'}
-  ],
-  'Faptele Apostolilor|2':[
-   {a:'Comoara Ascunsă',t:'Ziua Cincizecimii',tag:'Comentariu penticostal',x:'Împlinirea promisiunii lui Isus este vizibilă prin revărsarea Duhului Sfânt. Ucenicii sunt umpluți de Duhul și vorbesc în alte limbi. Petru explică evenimentul prin profeția lui Ioel și Îl proclamă pe Isus ca Domn și Hristos.'},
-   {a:'Stanley M. Horton',t:'Duhul Sfânt și Cincizecimea',tag:'Teolog penticostal',x:'Stanley M. Horton este o referință importantă în teologia penticostală a Duhului Sfânt. Îl indicăm aici ca autor pentru aprofundarea doctrinei Cincizecimii; nu reproducem textul cărților sale.'},
-   {a:'French L. Arrington',t:'Faptele Apostolilor și viața în Duhul',tag:'Teolog penticostal',x:'Recomandare pentru aprofundarea cărții Faptele Apostolilor din perspectivă penticostală. Materialul de față nu reproduce comentariul protejat al autorului.'}
-  ],
-  'Romani|8':[
-   {a:'Comoara Ascunsă',t:'Viața condusă de Duhul',tag:'Comentariu penticostal',x:'Capitolul contrastează viața după fire cu viața în Duhul. Duhul Sfânt locuiește în credincios, confirmă înfierea, ajută în slăbiciune și susține nădejdea răscumpărării finale.'},
-   {a:'Gordon D. Fee',t:'Pavel și lucrarea Duhului',tag:'Teolog penticostal',x:'Gordon D. Fee este recomandat pentru aprofundarea textelor pauline despre Duhul Sfânt. Aceasta este o trimitere bibliografică și nu o reproducere din lucrările sale.'}
-  ],
-  '1 Corinteni|12':[
-   {a:'Comoara Ascunsă',t:'Darurile Duhului',tag:'Comentariu penticostal',x:'Darurile sunt diverse, dar au aceeași sursă: Duhul Sfânt. Ele sunt date pentru folosul comun și zidirea Trupului lui Hristos, nu pentru competiție sau prestigiu personal.'},
-   {a:'Gordon D. Fee',t:'Darurile și comunitatea',tag:'Pentru aprofundare',x:'Autor recomandat pentru aprofundarea învățăturii pauline despre daruri spirituale, închinare și comunitatea creștină.'}
-  ],
-  '1 Corinteni|14':[
-   {a:'Comoara Ascunsă',t:'Darurile în adunare',tag:'Comentariu penticostal',x:'Pavel pune zidirea bisericii și ordinea în centrul folosirii publice a darurilor. Vorbirea în alte limbi și profeția sunt tratate în raport cu înțelegerea, interpretarea și folosul adus întregii adunări.'}
-  ],
-  'Efeseni|4':[
-   {a:'Comoara Ascunsă',t:'Daruri de slujire și maturizare',tag:'Studiu',x:'Unitatea Duhului trebuie păstrată, iar slujirile sunt date pentru echiparea sfinților și zidirea Trupului lui Hristos până la maturitate.'}
-  ],
-  'Iacov|5':[
-   {a:'Comoara Ascunsă',t:'Rugăciunea pentru bolnavi',tag:'Comentariu penticostal',x:'Iacov cheamă comunitatea la rugăciune, mărturisire și restaurare. Chemarea prezbiterilor și ungerea cu untdelemn ocupă un loc important în practica penticostală a rugăciunii pentru cei bolnavi.'}
-  ]
+ const COMMENTARIES=[
+  {
+    id:'mh', name:'Matthew Henry Complete', author:'Matthew Henry',
+    kind:'Comentariu biblic clasic', license:'Public Domain',
+    description:'Comentariu clasic pentru întreaga Biblie. Deschide sursa legală pentru cartea și capitolul studiat.',
+    url:'https://www.ccel.org/ccel/henry/mhc'
+  },
+  {
+    id:'jfb', name:'Critical and Explanatory', author:'Jamieson, Fausset & Brown',
+    kind:'Comentariu biblic', license:'Public Domain',
+    description:'Commentary Critical and Explanatory on the Whole Bible (1871), ediție electronică declarată Public Domain.',
+    url:'https://www.ccel.org/ccel/jamieson/jfb'
+  },
+  {
+    id:'tsk', name:'TSK References', author:'Treasury of Scripture Knowledge',
+    kind:'Referințe biblice', license:'Public Domain',
+    description:'Aproximativ 500.000 de trimiteri și pasaje paralele pentru studiul Scripturii.',
+    url:'https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=TSK'
+  },
+  {
+    id:'pent', name:'Comentariu Penticostal', author:'Comoara Ascunsă',
+    kind:'Perspectivă penticostală', license:'Conținut original',
+    description:'Studii originale dezvoltate pentru Comoara Ascunsă, fără atribuirea textelor unor autori moderni.',
+    url:''
+  }
+ ];
+ const PENTECOSTAL={
+  'Faptele Apostolilor|2':'Faptele 2 prezintă împlinirea promisiunii lui Isus privind puterea Duhului Sfânt. Revărsarea Duhului, vorbirea în alte limbi, predica lui Petru și răspunsul oamenilor formează împreună tabloul Cincizecimii: împuternicire pentru mărturie, proclamarea lui Hristos și nașterea unei comunități stăruitoare în învățătura apostolilor, părtășie, frângerea pâinii și rugăciuni.',
+  '1 Corinteni|12':'Pavel arată că darurile spirituale sunt diverse, dar izvorăsc din același Duh. Scopul lor nu este prestigiul personal, ci folosul comun și zidirea Trupului lui Hristos. Diversitatea darurilor trebuie să funcționeze în unitate, sub domnia lui Isus.',
+  '1 Corinteni|14':'În adunare, exercitarea darurilor trebuie să urmărească zidirea bisericii. Pavel păstrează loc pentru manifestările spirituale, dar cere înțelegere, interpretare și ordine. Libertatea spirituală și responsabilitatea față de comunitate nu sunt opuse.',
+  'Romani|8':'Viața în Duhul este prezentată în contrast cu viața dominată de fire. Duhul locuiește în credincios, confirmă înfierea, ajută în slăbiciune și susține nădejdea până la răscumpărarea deplină.',
+  'Iacov|5':'Iacov cheamă biserica la rugăciune pentru cel bolnav, implicarea prezbiterilor și ungerea cu untdelemn în Numele Domnului. Accentul rămâne pe Dumnezeu, pe rugăciunea credinței, mărturisire și restaurare.'
  };
  let testament='OT',book='Geneza',chapter=1,bible=null,overlay=null,mode='bible';
  const h=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -93,14 +95,20 @@ $('signupBtn').onclick=signup;$('loginBtn').onclick=login;$('logoutBtn').onclick
  async function selectChapter(n){chapter=n;if(!bible)bible=await loadRccv();renderChapters();overlay.querySelector('.bibleAppGrid').dataset.step='reading';overlay.querySelector('#appReadingTitle').textContent=book+' '+chapter;renderReading();if(typeof saveReading==='function')saveReading(book,chapter)}
  function renderReading(){
   if(!overlay||!bible)return;
-  const items=STUDIES[`${book}|${chapter}`]||[];
-  overlay.querySelector('#studyCount').textContent=items.length?`(${items.length})`:'';
+  const pent=PENTECOSTAL[`${book}|${chapter}`]||'';
+  overlay.querySelector('#studyCount').textContent=`(${COMMENTARIES.length})`;
   overlay.querySelector('#modeBible').classList.toggle('active',mode==='bible');
   overlay.querySelector('#modeStudy').classList.toggle('active',mode==='study');
   const box=overlay.querySelector('#appReading');
   if(mode==='study'){
-   box.innerHTML=`<div class="studyIntro"><small>BIBLIOTECĂ DE STUDIU</small><h3>${h(book)} ${chapter}</h3><p>Alege un comentariu sau material de aprofundare pentru pasajul citit.</p></div>`+
-   (items.length?items.map((v,i)=>`<details class="studyWork" ${i===0?'open':''}><summary><span><small>${h(v.tag)}</small><b>${h(v.t)}</b><em>${h(v.a)}</em></span><strong>＋</strong></summary><div class="studyWorkBody"><p>${h(v.x)}</p></div></details>`).join(''):`<div class="noStudy"><b>Nu avem încă un comentariu verificat pentru ${h(book)} ${chapter}.</b><p>Vom adăuga numai materiale originale, în domeniul public sau pentru care avem drept de publicare.</p></div>`);
+   const cards=COMMENTARIES.map(v=>{
+    const body=v.id==='pent'
+      ? (pent ? `<div class="studyWorkBody"><p>${h(pent)}</p><small>Text original Comoara Ascunsă — ${h(book)} ${chapter}</small></div>`
+              : `<div class="studyWorkBody"><p>Comentariul penticostal original pentru ${h(book)} ${chapter} este în pregătire. Nu afișăm texte inventate sub numele altor autori.</p></div>`)
+      : `<div class="studyWorkBody"><p>${h(v.description)}</p><a class="commentaryOpen" href="${h(v.url)}" target="_blank" rel="noopener">Deschide sursa legală ↗</a></div>`;
+    return `<details class="studyWork"><summary><span><small>${h(v.kind)} • ${h(v.license)}</small><b>${h(v.name)}</b><em>${h(v.author)}</em></span><strong>＋</strong></summary>${body}</details>`;
+   }).join('');
+   box.innerHTML=`<div class="studyIntro"><small>COMENTARII</small><h3>${h(book)} ${chapter}</h3><p>Comentarii și instrumente de studiu selectate pentru pasajul pe care îl citești.</p></div>${cards}`;
    return;
   }
   const code=BOOKMAP[book],ch=bible[code]?.[String(chapter)];

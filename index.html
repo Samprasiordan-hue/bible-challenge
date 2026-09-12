@@ -43,6 +43,9 @@ body{padding-bottom:0!important}
   footer{padding:24px 14px 90px!important}
   #buildVersion{bottom:10px!important}
 }
+
+.commentaryOpen{display:inline-flex;margin-top:10px;padding:10px 14px;border-radius:10px;background:#0b2c42;color:#fff!important;text-decoration:none;font-weight:800}
+.studyWorkBody small{display:block;margin-top:12px;color:#8a6b32;font-weight:700}
 </style>
 <style>
 /* Bible app-style navigator */
@@ -118,7 +121,7 @@ body{padding-bottom:0!important}
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
 <section class="section dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><p style="color:#e7b54f;font-weight:bold">DEVELOPER</p><h2>Iordan Sampras</h2><p>Creator Comoara Ascunsă</p><p>Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><p>📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</p></div></div></section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=19"></script><script src="account.js?v=19"></script><script>
+<script src="app.js?v=20"></script><script src="account.js?v=20"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
