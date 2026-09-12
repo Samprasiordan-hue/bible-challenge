@@ -112,7 +112,10 @@ body{padding-bottom:0!important}
 }
 </style>
 
-</head><body>
+<style>
+.wordNoteOverlay{position:fixed;inset:0;z-index:99999;background:#06131dcc;display:flex;align-items:center;justify-content:center;padding:16px}.wordNoteModal{width:min(900px,100%);height:min(720px,94vh);display:flex;flex-direction:column;background:#f5f3ee;border:1px solid #d7b05a;border-radius:18px;overflow:hidden;box-shadow:0 25px 80px #0007}.wordNoteHead{background:#092c43;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}.wordNoteHead div{display:grid}.wordNoteHead small{color:#e4b95e;font-weight:800}.wordNoteHead b{font-size:19px}.wordNoteHead>button{border:0;background:none;color:#fff;font-size:30px}.wordToolbar{display:flex;flex-wrap:wrap;gap:5px;padding:8px 10px;background:#fff;border-bottom:1px solid #ddd}.wordToolbar button{height:36px;min-width:38px;border:1px solid #d5d0c8;background:#fff;border-radius:7px;color:#153247;font-size:15px}.wordToolbar i{width:1px;height:26px;background:#ddd;margin:5px 3px}.wordNoteEditor{flex:1;overflow:auto;margin:14px;padding:22px;background:#fff;border:1px solid #ddd;border-radius:9px;outline:none;font:17px/1.65 Georgia,serif;color:#243640}.wordNoteEditor:empty:before{content:attr(data-placeholder);color:#999}.wordNoteEditor blockquote,.savedRichNote blockquote{border-left:4px solid #d3a445;padding:7px 13px;background:#fff8e8}.wordNoteFoot{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border-top:1px solid #ddd;font-size:13px;color:#68757c}.wordNoteFoot>div{display:flex;gap:7px}.wordNoteFoot button{padding:10px 14px;border-radius:8px;font-weight:800}.wordCancel{background:#fff;border:1px solid #ccc}.wordSave{background:#0b2c42;color:#fff;border:1px solid #0b2c42}.savedRichNote{margin:8px 0;line-height:1.55}.savedRichNote h2,.savedRichNote h3{color:#0b2c42}
+@media(max-width:650px){.wordNoteOverlay{padding:0}.wordNoteModal{height:100%;max-height:none;border-radius:0}.wordToolbar{padding:6px}.wordToolbar button{min-width:33px;height:33px}.wordNoteEditor{margin:8px;padding:15px;font-size:16px}.wordNoteFoot{align-items:flex-start;flex-direction:column}.wordNoteFoot>div{width:100%}.wordNoteFoot button{flex:1}}
+</style></head><body>
 <header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
 <main class="dashboard"><div class="w">
@@ -137,7 +140,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=22"></script><script src="account.js?v=22"></script><script>
+<script src="app.js?v=23"></script><script src="account.js?v=23"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
