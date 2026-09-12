@@ -23,100 +23,32 @@ function setupFreeReader(){const sel=$('freeBook');Object.keys(BOOKMAP).forEach(
 $('signupBtn').onclick=signup;$('loginBtn').onclick=login;$('logoutBtn').onclick=logout;setupFreeReader();renderAuth();
 })();
 
-// Bible navigator – Bible + study library
+// Bible navigator – app style
 (function(){
  const OT=['Geneza','Exodul','Leviticul','Numeri','Deuteronomul','Iosua','Judecători','Rut','1 Samuel','2 Samuel','1 Împărați','2 Împărați','1 Cronici','2 Cronici','Ezra','Neemia','Estera','Iov','Psalmii','Proverbele','Eclesiastul','Cântarea Cântărilor','Isaia','Ieremia','Plângerile lui Ieremia','Ezechiel','Daniel','Osea','Ioel','Amos','Obadia','Iona','Mica','Naum','Habacuc','Țefania','Hagai','Zaharia','Maleahi'];
  const NT=['Matei','Marcu','Luca','Ioan','Faptele Apostolilor','Romani','1 Corinteni','2 Corinteni','Galateni','Efeseni','Filipeni','Coloseni','1 Tesaloniceni','2 Tesaloniceni','1 Timotei','2 Timotei','Tit','Filimon','Evrei','Iacov','1 Petru','2 Petru','1 Ioan','2 Ioan','3 Ioan','Iuda','Apocalipsa'];
- const COMMENTARIES=[
-  {
-    id:'mh', name:'Matthew Henry Complete', author:'Matthew Henry',
-    kind:'Comentariu biblic clasic', license:'Public Domain',
-    description:'Comentariu clasic pentru întreaga Biblie. Deschide sursa legală pentru cartea și capitolul studiat.',
-    url:'https://www.ccel.org/ccel/henry/mhc'
-  },
-  {
-    id:'jfb', name:'Critical and Explanatory', author:'Jamieson, Fausset & Brown',
-    kind:'Comentariu biblic', license:'Public Domain',
-    description:'Commentary Critical and Explanatory on the Whole Bible (1871), ediție electronică declarată Public Domain.',
-    url:'https://www.ccel.org/ccel/jamieson/jfb'
-  },
-  {
-    id:'tsk', name:'TSK References', author:'Treasury of Scripture Knowledge',
-    kind:'Referințe biblice', license:'Public Domain',
-    description:'Aproximativ 500.000 de trimiteri și pasaje paralele pentru studiul Scripturii.',
-    url:'https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=TSK'
-  },
-  {
-    id:'pent', name:'Comentariu Penticostal', author:'Comoara Ascunsă',
-    kind:'Perspectivă penticostală', license:'Conținut original',
-    description:'Studii originale dezvoltate pentru Comoara Ascunsă, fără atribuirea textelor unor autori moderni.',
-    url:''
-  }
- ];
- const PENTECOSTAL={
-  'Faptele Apostolilor|2':'Faptele 2 prezintă împlinirea promisiunii lui Isus privind puterea Duhului Sfânt. Revărsarea Duhului, vorbirea în alte limbi, predica lui Petru și răspunsul oamenilor formează împreună tabloul Cincizecimii: împuternicire pentru mărturie, proclamarea lui Hristos și nașterea unei comunități stăruitoare în învățătura apostolilor, părtășie, frângerea pâinii și rugăciuni.',
-  '1 Corinteni|12':'Pavel arată că darurile spirituale sunt diverse, dar izvorăsc din același Duh. Scopul lor nu este prestigiul personal, ci folosul comun și zidirea Trupului lui Hristos. Diversitatea darurilor trebuie să funcționeze în unitate, sub domnia lui Isus.',
-  '1 Corinteni|14':'În adunare, exercitarea darurilor trebuie să urmărească zidirea bisericii. Pavel păstrează loc pentru manifestările spirituale, dar cere înțelegere, interpretare și ordine. Libertatea spirituală și responsabilitatea față de comunitate nu sunt opuse.',
-  'Romani|8':'Viața în Duhul este prezentată în contrast cu viața dominată de fire. Duhul locuiește în credincios, confirmă înfierea, ajută în slăbiciune și susține nădejdea până la răscumpărarea deplină.',
-  'Iacov|5':'Iacov cheamă biserica la rugăciune pentru cel bolnav, implicarea prezbiterilor și ungerea cu untdelemn în Numele Domnului. Accentul rămâne pe Dumnezeu, pe rugăciunea credinței, mărturisire și restaurare.'
- };
- let testament='OT',book='Geneza',chapter=1,bible=null,overlay=null,mode='bible';
+ let testament='OT', book='Geneza', chapter=1, bible=null, overlay=null;
  const h=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function books(){return testament==='OT'?OT:NT}
  function make(){
-  if(overlay)return;
-  overlay=document.createElement('div');overlay.className='bibleAppOverlay studyReader';
-  overlay.innerHTML=`<div class="bibleAppTop"><button class="bibleAppBack">← Înapoi</button><b>📖 Comoara Ascunsă — Biblia</b></div>
-  <div class="bibleAppGrid" data-step="books">
-   <aside class="biblePane"><div class="biblePaneTitle">Cărțile Bibliei</div><div class="testamentTabs"><button data-t="OT" class="active">Vechiul Testament</button><button data-t="NT">Noul Testament</button></div><div class="bibleList" id="appBooks"></div></aside>
-   <aside class="biblePane chapterPane"><div class="biblePaneTitle" id="appBookTitle">Geneza</div><div class="bibleList chapterList" id="appChapters"></div></aside>
-   <main class="readingPane">
-    <div class="readingHead"><button class="readingNav" id="prevChapter">‹</button><h2 id="appReadingTitle">Geneza 1</h2><button class="readingNav" id="nextChapter">›</button></div>
-    <div class="readerModeTabs"><button id="modeBible" class="active">📖 Biblia</button><button id="modeStudy">📚 Comentarii și studii <span id="studyCount"></span></button></div>
-    <div id="appReading"><p style="padding:25px 0">Alege o carte și un capitol.</p></div>
-   </main>
-  </div>
-  <div class="bibleMobileBar"><button data-go="books"><b>☰</b>Cărți</button><button data-go="chapters"><b>▤</b>Capitole</button><button data-go="reading"><b>📖</b>Lectură</button></div>`;
-  document.body.appendChild(overlay);document.body.style.overflow='hidden';
+  if(overlay) return;
+  overlay=document.createElement('div'); overlay.className='bibleAppOverlay';
+  overlay.innerHTML=`<div class="bibleAppTop"><button class="bibleAppBack">← Înapoi</button><b>📖 Comoara Ascunsă — Biblia</b></div><div class="bibleAppGrid" data-step="books"><aside class="biblePane"><div class="biblePaneTitle">Cărțile Bibliei</div><div class="testamentTabs"><button data-t="OT" class="active">Vechiul Testament</button><button data-t="NT">Noul Testament</button></div><div class="bibleList" id="appBooks"></div></aside><aside class="biblePane chapterPane"><div class="biblePaneTitle" id="appBookTitle">Geneza</div><div class="bibleList chapterList" id="appChapters"><p style="padding:12px">Alege o carte.</p></div></aside><main class="readingPane"><div class="readingHead"><button class="readingNav" id="prevChapter">‹</button><h2 id="appReadingTitle">Geneza 1</h2><button class="readingNav" id="nextChapter">›</button></div><div id="appReading"><p style="padding:25px 0">Alege o carte și un capitol.</p></div></main></div><div class="bibleMobileBar"><button data-go="books"><b>☰</b>Cărți</button><button data-go="chapters"><b>▤</b>Capitole</button><button data-go="reading"><b>📖</b>Lectură</button></div>`;
+  document.body.appendChild(overlay); document.body.style.overflow='hidden';
   overlay.querySelector('.bibleAppBack').onclick=close;
   overlay.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{testament=b.dataset.t;overlay.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('active',x.dataset.t===testament));renderBooks()});
   overlay.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>overlay.querySelector('.bibleAppGrid').dataset.step=b.dataset.go);
   overlay.querySelector('#prevChapter').onclick=()=>{if(chapter>1)selectChapter(chapter-1)};
   overlay.querySelector('#nextChapter').onclick=()=>{const max=chapterCount();if(chapter<max)selectChapter(chapter+1)};
-  overlay.querySelector('#modeBible').onclick=()=>{mode='bible';renderReading()};
-  overlay.querySelector('#modeStudy').onclick=()=>{mode='study';renderReading()};
-  renderBooks();selectBook(book,false);
+  renderBooks(); selectBook(book,false);
  }
  function close(){if(!overlay)return;overlay.remove();overlay=null;document.body.style.overflow=''}
  function renderBooks(){overlay.querySelector('#appBooks').innerHTML=books().map(b=>`<button data-book="${h(b)}" class="${b===book?'active':''}"><span>${h(b)}</span><span>›</span></button>`).join('');overlay.querySelectorAll('[data-book]').forEach(x=>x.onclick=()=>selectBook(x.dataset.book,true))}
- async function selectBook(b,mobile){book=b;chapter=1;testament=NT.includes(b)?'NT':'OT';overlay.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('active',x.dataset.t===testament));renderBooks();overlay.querySelector('#appBookTitle').textContent=b;overlay.querySelector('#appChapters').innerHTML='<p style="padding:12px">Se încarcă capitolele…</p>';if(mobile)overlay.querySelector('.bibleAppGrid').dataset.step='chapters';try{bible=bible||await loadRccv();renderChapters()}catch(e){overlay.querySelector('#appChapters').innerHTML='<p style="padding:12px">Nu am putut încărca Biblia.</p>'}}
+ async function selectBook(b,mobile){book=b;chapter=1;testament=NT.includes(b)?'NT':'OT';renderBooks();overlay.querySelector('#appBookTitle').textContent=b;overlay.querySelector('#appChapters').innerHTML='<p style="padding:12px">Se încarcă capitolele…</p>';if(mobile)overlay.querySelector('.bibleAppGrid').dataset.step='chapters';try{bible=bible||await loadRccv();renderChapters();}catch(e){overlay.querySelector('#appChapters').innerHTML='<p style="padding:12px">Nu am putut încărca Biblia.</p>'}}
  function chapterCount(){const code=BOOKMAP[book];return bible&&bible[code]?Object.keys(bible[code]).filter(x=>/^\d+$/.test(x)).length:1}
  function renderChapters(){const n=chapterCount();overlay.querySelector('#appChapters').innerHTML=Array.from({length:n},(_,i)=>`<button data-ch="${i+1}" class="${i+1===chapter?'active':''}"><span>Capitolul ${i+1}</span><span>›</span></button>`).join('');overlay.querySelectorAll('[data-ch]').forEach(x=>x.onclick=()=>selectChapter(+x.dataset.ch))}
- async function selectChapter(n){chapter=n;if(!bible)bible=await loadRccv();renderChapters();overlay.querySelector('.bibleAppGrid').dataset.step='reading';overlay.querySelector('#appReadingTitle').textContent=book+' '+chapter;renderReading();if(typeof saveReading==='function')saveReading(book,chapter)}
- function renderReading(){
-  if(!overlay||!bible)return;
-  const pent=PENTECOSTAL[`${book}|${chapter}`]||'';
-  overlay.querySelector('#studyCount').textContent=`(${COMMENTARIES.length})`;
-  overlay.querySelector('#modeBible').classList.toggle('active',mode==='bible');
-  overlay.querySelector('#modeStudy').classList.toggle('active',mode==='study');
-  const box=overlay.querySelector('#appReading');
-  if(mode==='study'){
-   const cards=COMMENTARIES.map(v=>{
-    const body=v.id==='pent'
-      ? (pent ? `<div class="studyWorkBody"><p>${h(pent)}</p><small>Text original Comoara Ascunsă — ${h(book)} ${chapter}</small></div>`
-              : `<div class="studyWorkBody"><p>Comentariul penticostal original pentru ${h(book)} ${chapter} este în pregătire. Nu afișăm texte inventate sub numele altor autori.</p></div>`)
-      : `<div class="studyWorkBody"><p>${h(v.description)}</p><a class="commentaryOpen" href="${h(v.url)}" target="_blank" rel="noopener">Deschide sursa legală ↗</a></div>`;
-    return `<details class="studyWork"><summary><span><small>${h(v.kind)} • ${h(v.license)}</small><b>${h(v.name)}</b><em>${h(v.author)}</em></span><strong>＋</strong></summary>${body}</details>`;
-   }).join('');
-   box.innerHTML=`<div class="studyIntro"><small>COMENTARII</small><h3>${h(book)} ${chapter}</h3><p>Comentarii și instrumente de studiu selectate pentru pasajul pe care îl citești.</p></div>${cards}`;
-   return;
-  }
-  const code=BOOKMAP[book],ch=bible[code]?.[String(chapter)];
-  if(!ch){box.innerHTML='<p>Capitolul nu a fost găsit.</p>';return}
-  const q=book.replace(/'/g,"\\'");
-  box.innerHTML=Object.entries(ch).filter(([,t])=>String(t).trim()).sort((a,b)=>+a[0]-+b[0]).map(([n,t])=>`<div class="appVerse"><span class="appVerseNum">${n}</span><span>${h(t)}</span><span class="appVerseActions"><button title="Favorite" onclick="toggleFavorite('${q}',${chapter},${n})">♡</button><button title="Notiță" onclick="saveBibleNote('${q}',${chapter},${n})">📝</button></span></div>`).join('');
- }
+ async function selectChapter(n){chapter=n;if(!bible)bible=await loadRccv();renderChapters();overlay.querySelector('.bibleAppGrid').dataset.step='reading';overlay.querySelector('#appReadingTitle').textContent=book+' '+chapter;const code=BOOKMAP[book],ch=bible[code]?.[String(chapter)],box=overlay.querySelector('#appReading');if(!ch){box.innerHTML='<p>Capitolul nu a fost găsit.</p>';return}const q=book.replace(/'/g,"\\'");box.innerHTML=Object.entries(ch).filter(([,t])=>String(t).trim()).sort((a,b)=>+a[0]-+b[0]).map(([n,t])=>`<div class="appVerse"><span class="appVerseNum">${n}</span><span>${h(t)}</span><span class="appVerseActions"><button title="Favorite" onclick="toggleFavorite('${q}',${chapter},${n})">♡</button><button title="Notiță" onclick="saveBibleNote('${q}',${chapter},${n})">📝</button></span></div>`).join('');if(typeof saveReading==='function')saveReading(book,chapter)}
  window.openBibleApp=()=>make();
  document.addEventListener('click',e=>{const a=e.target.closest('a[href="#biblia"],a[href="#biblia-libera"]');if(a){e.preventDefault();make()}});
- const old=document.getElementById('openFreeBible');if(old){old.textContent='Deschide Biblia';old.onclick=()=>make()}
+ const old=document.getElementById('openFreeBible');if(old)old.textContent='Deschide Biblia ca în aplicație';if(old)old.onclick=()=>make();
 })();

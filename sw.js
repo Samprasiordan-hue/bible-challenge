@@ -1,5 +1,5 @@
-const CACHE='comoara-v20-comentarii';
-const ASSETS=['./','./index.html','./app.js?v=20','./account.js?v=20','./manifest.json','./favicon.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png','./iordan-sampras-final.png'];
+const CACHE='comoara-v22-fara-comentarii-developer';
+const ASSETS=['./','./index.html','./app.js?v=22','./account.js?v=22','./app-shell.css?v=6','./app-shell.js?v=6','./manifest.json','./favicon.png','./apple-touch-icon.png','./icon-192.png','./icon-512.png','./logo-comoara-v14-sync-bife','./iordan-sampras-final.png','./developer-comoara-ascunsa.jpeg'];
 self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{}));});
 self.addEventListener('activate',event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim();})());});
 self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET')return;const url=new URL(req.url);if(url.origin!==location.origin)return;event.respondWith((async()=>{try{const fresh=await fetch(req,{cache:'no-store'});const c=await caches.open(CACHE);c.put(req,fresh.clone());return fresh;}catch(e){return (await caches.match(req))||(req.mode==='navigate'?caches.match('./index.html'):Response.error());}})());});

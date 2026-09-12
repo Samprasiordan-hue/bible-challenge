@@ -43,9 +43,6 @@ body{padding-bottom:0!important}
   footer{padding:24px 14px 90px!important}
   #buildVersion{bottom:10px!important}
 }
-
-.commentaryOpen{display:inline-flex;margin-top:10px;padding:10px 14px;border-radius:10px;background:#0b2c42;color:#fff!important;text-decoration:none;font-weight:800}
-.studyWorkBody small{display:block;margin-top:12px;color:#8a6b32;font-weight:700}
 </style>
 <style>
 /* Bible app-style navigator */
@@ -92,16 +89,27 @@ body{padding-bottom:0!important}
 
 
 <style>
-.readerModeTabs{display:flex;gap:8px;padding:10px 0 14px;position:sticky;top:0;background:#fff;z-index:4;border-bottom:1px solid #eee2cf}
-.readerModeTabs button{border:1px solid #d9ccb6;background:#fff;color:#173043;border-radius:999px;padding:10px 15px;font-weight:800;cursor:pointer}
-.readerModeTabs button.active{background:#0b2c42;color:#fff;border-color:#0b2c42}
-.studyIntro{padding:18px 4px 8px}.studyIntro small{color:#a57419;font-weight:900;letter-spacing:.08em}.studyIntro h3{font-size:28px;color:#0b2c42;margin:4px 0}.studyIntro p{color:#69757d}
-.studyWork{background:#fff;border:1px solid #e2d6c1;border-radius:15px;margin:12px 0;overflow:hidden;box-shadow:0 3px 12px #1723310a}
-.studyWork summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:15px 16px;background:#fffaf0}.studyWork summary::-webkit-details-marker{display:none}
-.studyWork summary span{display:grid;gap:3px}.studyWork summary small{color:#a57419;font-size:11px;font-weight:900;text-transform:uppercase}.studyWork summary b{color:#0b2c42;font-size:17px}.studyWork summary em{font-style:normal;color:#6c777e;font-size:13px}.studyWork summary strong{font-size:22px;color:#b17a18}
-.studyWork[open] summary{border-bottom:1px solid #eadfcd}.studyWork[open] summary strong{transform:rotate(45deg)}.studyWorkBody{padding:16px 18px}.studyWorkBody p{margin:0;line-height:1.72;color:#273a46;font-size:16px}
-.noStudy{margin:18px 0;padding:18px;border:1px dashed #cdbb9d;background:#fffaf0;border-radius:14px;color:#53616a}.noStudy p{margin-bottom:0}
-@media(max-width:700px){.readerModeTabs{padding:8px 0 11px}.readerModeTabs button{flex:1;padding:9px 7px;font-size:13px}.studyIntro h3{font-size:23px}.studyWork summary{padding:13px}.studyWorkBody{padding:14px}}
+.developerPosterWrap{max-width:1180px}
+.developerPosterTitle{text-align:center;margin-bottom:18px}
+.developerPosterTitle h2{color:#fff;margin:0}
+.dev .developerPoster{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0 auto!important;
+  border:2px solid #d8aa4a!important;
+  border-radius:22px!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.28);
+}
+@media(max-width:700px){
+  .section.dev{padding-left:10px;padding-right:10px}
+  .developerPosterTitle{margin-bottom:12px}
+  .dev .developerPoster{border-radius:14px!important}
+}
 </style>
 
 </head><body>
@@ -119,9 +127,17 @@ body{padding-bottom:0!important}
 </div></main>
 <section class="section alt" id="quiz"><div class="w"><div class="title"><h2>Quiz Creștin</h2><p>100 de întrebări • Biblie • doctrină • teologie penticostală</p></div><div class="quizControls"><select id="quizCat"><option>Toate</option><option>Biblie</option><option>Doctrină</option><option>Penticostal</option></select><select id="quizLevel"><option>Toate</option><option>Ușor</option><option>Mediu</option><option>Greu</option></select><button class="btn gold" id="quizStart">Quiz nou – 20 întrebări</button></div><div class="card" id="qb"></div></div></section>
 <section class="section" id="resurse"><div class="w"><div class="title"><h2>Resurse utile</h2><p>Schițe • pilde • rugăciune • studii • Cina Domnului • tineri • evanghelizare • doctrină</p></div><div class="resourceTools"><input id="resourceSearch" type="search" placeholder="Caută în resurse..."><select id="resourceCat"><option>Toate</option><option>Schițe de predici</option><option>Pilde și ilustrații</option><option>Îndemnuri la rugăciune</option><option>Studii biblice</option><option>Cina Domnului</option><option>Tineri</option><option>Evanghelizare</option><option>Doctrină</option></select><b id="resourceCount"></b></div><div id="resourceList"></div></div></section>
-<section class="section dev" id="despre"><div class="w devgrid"><img src="iordan-sampras-final.png" alt="Iordan Sampras"><div><p style="color:#e7b54f;font-weight:bold">DEVELOPER</p><h2>Iordan Sampras</h2><p>Creator Comoara Ascunsă</p><p>Un proiect creat pentru a încuraja citirea consecventă a Scripturii și aprofundarea adevărurilor biblice.</p><p>📞 <a href="tel:+32484970967">0484.970.967</a><br>✉️ <a href="mailto:samprasiordan1@hotmail.com">samprasiordan1@hotmail.com</a><br>⛪ Biserica Maranata Bruxelles</p></div></div></section>
+<section class="section dev" id="despre">
+  <div class="w developerPosterWrap">
+    <div class="title developerPosterTitle">
+      <p style="color:#e7b54f;font-weight:bold;margin-bottom:6px">DEVELOPER</p>
+      <h2>Iordan Sampras</h2>
+    </div>
+    <img class="developerPoster" src="developer-comoara-ascunsa.jpeg" alt="Iordan Sampras — Creator Comoara Ascunsă">
+  </div>
+</section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=20"></script><script src="account.js?v=20"></script><script>
+<script src="app.js?v=22"></script><script src="account.js?v=22"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -134,7 +150,7 @@ body{padding-bottom:0!important}
   document.getElementById('continueReading').onclick=()=>{const idx=Math.max(0,Math.min(total-1,day-1)); if(typeof openReader==='function'&&start)openReader(idx); else document.getElementById('planuri').scrollIntoView()};
  }
  setTimeout(updateDash,80); document.addEventListener('change',()=>setTimeout(updateDash,80)); document.addEventListener('click',()=>setTimeout(updateDash,100));
- if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=19').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
+ if('serviceWorker' in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js?v=11').then(reg=>reg.update()).catch(()=>{});let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded){reloaded=true;location.reload();}});});
 })();
 </script>
 <script>
