@@ -66,6 +66,27 @@ body{padding-bottom:0!important}
  .devgrid{gap:10px!important}.devgrid img{max-height:180px!important;width:145px!important;margin:auto!important}.devgrid{text-align:center!important}.devgrid p{margin:5px 0!important}footer{padding:16px 10px!important}
 }
 </style>
+
+<style>
+/* V13 — lista participanților vizibilă */
+#peopleList .person{
+  color:#172331!important;
+  background:#fff!important;
+}
+#peopleList .person b,
+#peopleList .person small{
+  color:#172331!important;
+}
+#peopleList .person .participantName{
+  font-size:16px;
+  font-weight:800;
+}
+#peopleList .person .participantProgress{
+  text-align:right;
+  min-width:72px;
+}
+</style>
+
 </head><body>
 <header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
@@ -115,7 +136,7 @@ function progressDay(p){
 async function loadPeople(){
  const ps=await sb('participants?select=id,display_name,joined_at,participant_progress(completed_day)&challenge_id=eq.'+activeChallenge.id+'&order=joined_at.asc');
  document.getElementById('chPeople').textContent=ps.length;
- document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=progressDay(p),pc=Math.round(d/90*100);return `<div class="person"><div><b>👤 ${escapeHtml(p.display_name)}</b><div class="mini"><i style="width:${Math.min(100,pc)}%"></i></div></div><div><b>${pc}%</b><br><small>Ziua ${d}</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>';
+ document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=progressDay(p),pc=Math.round(d/90*100);return `<div class="person"><div><div class="participantName">👤 ${escapeHtml(p.display_name)}</div><div class="mini"><i style="width:${Math.min(100,pc)}%"></i></div></div><div class="participantProgress"><b>${pc}%</b><br><small>Ziua ${d} din 90</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>';
  const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');
  if(saved){const mine=ps.find(p=>p.id===saved.id); if(mine){const d=progressDay(mine); saved.day=d; localStorage.setItem('comoara-participant',JSON.stringify(saved)); const inp=document.getElementById('myDay'); if(inp)inp.value=d;}}
 }
@@ -183,4 +204,4 @@ document.addEventListener('comoara:progresschanged',()=>setTimeout(syncChallenge
 loadChallenge();
 </script>
 
-<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v12-progres-zilnic</div></body></html>
+<div id="buildVersion" style="position:fixed;right:8px;bottom:74px;z-index:9998;background:#08283d;color:#fff;border:1px solid #c99024;border-radius:999px;padding:4px 8px;font:700 10px Arial;opacity:.8">v13-participanti</div></body></html>
