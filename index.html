@@ -131,7 +131,7 @@ body{padding-bottom:0!important}
 <style>
 .readingReminder{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:#ffffff10;border:1px solid #ffffff24}.readingReminder div{display:grid;gap:3px}.readingReminder b{color:#fff}.readingReminder span{font-size:12px;color:#d9e0e5}.readingReminder button{border:0;border-radius:9px;padding:10px 13px;background:#f4c65e;color:#102b3c;font-weight:900}.readingReminder button.on{background:#dff3df;color:#175b2c}
 @media(max-width:650px){.readingReminder{align-items:stretch;flex-direction:column}.readingReminder button{width:100%}}
-</style></head><body>
+</style><style>.participantAdminActions{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.participantAdminActions button{padding:6px 8px;border-radius:7px;border:1px solid #d8b65a;background:#fff8e5;color:#173043;font-weight:800;font-size:11px}.participantAdminActions .danger{background:#9d2e2e;color:#fff;border-color:#9d2e2e}</style></head><body>
 <header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a><a href="#stiri">🌍 Știri creștine</a><a href="#calendar-evreiesc">📅 Calendar</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
 <main class="dashboard"><div class="w">
@@ -190,7 +190,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=28"></script><script src="account.js?v=28"></script><script>
+<script src="app.js?v=29"></script><script src="account.js?v=29"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -240,7 +240,7 @@ function progressDay(p){
 async function loadPeople(){
  const ps=await sb('participants?select=id,display_name,joined_at,participant_progress(completed_day)&challenge_id=eq.'+activeChallenge.id+'&order=joined_at.asc');
  document.getElementById('chPeople').textContent=ps.length;
- document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=progressDay(p),pc=Math.round(d/90*100);return `<div class="person"><div><div class="participantName">👤 ${escapeHtml(p.display_name)}</div><div class="mini"><i style="width:${Math.min(100,pc)}%"></i></div></div><div class="participantProgress"><b>${pc}%</b><br><small>${d} ${d===1?'zi citită':'zile citite'} din 90</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>';
+ document.getElementById('peopleList').innerHTML=ps.length?ps.map(p=>{let d=progressDay(p),pc=Math.round(d/90*100);return `<div class="person"><div><div class="participantName">👤 ${escapeHtml(p.display_name)}</div><div class="mini"><i style="width:${Math.min(100,pc)}%"></i></div>${isAdmin()?`<div class="participantAdminActions"><button onclick="adminRenameParticipant('${p.id}')">✏️ Nume</button><button onclick="adminResetParticipant('${p.id}')">🔄 Reset 0</button><button class="danger" onclick="adminDeleteParticipant('${p.id}')">🗑️ Șterge</button></div>`:''}</div><div class="participantProgress"><b>${pc}%</b><br><small>${d} ${d===1?'zi citită':'zile citite'} din 90</small></div></div>`}).join(''):'<div class="loading">Fii primul care se alătură provocării! 🙏</div>';
  const saved=JSON.parse(localStorage.getItem('comoara-participant')||'null');
  if(saved){const mine=ps.find(p=>p.id===saved.id); if(mine){const d=progressDay(mine); saved.day=d; localStorage.setItem('comoara-participant',JSON.stringify(saved)); const label=document.getElementById('myDayText'); if(label)label.textContent=`${d} ${d===1?'zi citită':'zile citite'} din 90`;}}
 }
@@ -336,6 +336,23 @@ document.getElementById('adminDeleteChallenge').onclick=async()=>{
  try{await adminReq('challenges?id=eq.'+activeChallenge.id,'DELETE');m.textContent='Ștearsă.';location.reload()}catch(e){m.textContent='Nu s-a putut șterge.'}
 };
 setInterval(showAdmin,2000);setTimeout(showAdmin,300);
+
+
+window.adminRenameParticipant=async function(id){
+ if(!isAdmin())return;
+ const ps=await sb('participants?select=id,display_name&id=eq.'+encodeURIComponent(id)+'&limit=1');
+ const name=prompt('Numele participantului:',ps?.[0]?.display_name||''); if(name===null)return;
+ const clean=name.trim();if(clean.length<2||clean.length>60){alert('Numele trebuie să aibă între 2 și 60 de caractere.');return}
+ try{await adminReq('participants?id=eq.'+encodeURIComponent(id),'PATCH',{display_name:clean});await loadPeople()}catch(e){alert('Nu s-a putut schimba numele.')}
+};
+window.adminResetParticipant=async function(id){
+ if(!isAdmin()||!confirm('Resetezi progresul acestui participant la 0?'))return;
+ try{await adminReq('participant_progress?participant_id=eq.'+encodeURIComponent(id),'PATCH',{completed_day:0});await loadPeople()}catch(e){alert('Nu s-a putut reseta progresul.')}
+};
+window.adminDeleteParticipant=async function(id){
+ if(!isAdmin()||!confirm('Sigur vrei să ștergi acest participant?'))return;
+ try{await adminReq('participants?id=eq.'+encodeURIComponent(id),'DELETE');await loadPeople()}catch(e){alert('Nu s-a putut șterge participantul.')}
+};
 
 loadChallenge();
 </script>
