@@ -197,7 +197,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=31"></script><script src="account.js?v=31"></script><script>
+<script src="app.js?v=32"></script><script src="account.js?v=32"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -303,7 +303,7 @@ async function syncChallengeFromPlan(force=false){
 window.syncChallengeFromPlan=syncChallengeFromPlan;
 
 function escapeHtml(x){return String(x).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-document.getElementById('joinChallenge').onclick=async()=>{const n=document.getElementById('joinName').value.trim(),m=document.getElementById('challengeMsg');if(n.length<2){m.textContent='Scrie un nume de cel puțin 2 caractere.';return}try{m.textContent='Te înscriem…';const r=await sb('rpc/join_challenge',{method:'POST',body:JSON.stringify({p_invite_code:activeChallenge.invite_code,p_display_name:n})});const x=r&&r[0];if(!x)throw new Error('join');localStorage.setItem('comoara-participant',JSON.stringify({challengeId:activeChallenge.id,id:x.participant_id,token:x.participant_token,day:0,name:n}));document.getElementById('myProgress').style.display='block';m.textContent='Bine ai venit, '+n+'! 🙏';document.getElementById('joinName').value='';await loadPeople()}catch(e){m.textContent='Nu am putut face înscrierea. Încearcă din nou.'}};
+document.getElementById('joinChallenge').onclick=async()=>{const n=document.getElementById('joinName').value.trim(),m=document.getElementById('challengeMsg');if(n.length<2){m.textContent='Scrie un nume de cel puțin 2 caractere.';return}try{m.textContent='Te înscriem…';const r=await sb('rpc/join_challenge',{method:'POST',body:JSON.stringify({p_invite_code:activeChallenge.invite_code,p_display_name:n})});const x=r&&r[0];if(!x)throw new Error('join');localStorage.setItem('comoara-participant',JSON.stringify({challengeId:activeChallenge.id,id:x.participant_id,token:x.participant_token,day:0,name:n}));document.getElementById('myProgress').style.display='block';m.textContent='Bine ai venit, '+n+'! 🙏';document.getElementById('joinName').value='';await loadPeople();setTimeout(initChallengeChat,100)}catch(e){m.textContent='Nu am putut face înscrierea. Încearcă din nou.'}};
 document.getElementById('shareChallenge').onclick=()=>{const text='Alătură-te provocării „Maranata – Biblia în 90 de zile” pe Comoara Ascunsă: '+location.origin+'/#provocari';location.href='https://wa.me/?text='+encodeURIComponent(text)};
 document.addEventListener('change',()=>setTimeout(syncChallengeFromPlan,120));
 document.addEventListener('click',()=>setTimeout(syncChallengeFromPlan,180));
@@ -363,78 +363,55 @@ window.adminDeleteParticipant=async function(id){
 
 
 
-let chatParticipant=null,chatTimer=null;
-function chatTokenData(){
- try{
-  const keys=Object.keys(localStorage);
-  for(const k of keys){
-   if(k.toLowerCase().includes('participant')||k.toLowerCase().includes('challenge')){
-    const raw=localStorage.getItem(k);
-    if(!raw)continue;
-    try{
-     const v=JSON.parse(raw);
-     if(v&&typeof v==='object'){
-      const id=v.participant_id||v.participantId||v.id;
-      const token=v.participant_token||v.participantToken||v.token;
-      if(id&&token)return {id,token};
-     }
-    }catch(_){}
-   }
-  }
- }catch(_){}
- return null;
-}
-async function chatRpc(fn,body){
- const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{
-  method:'POST',
-  headers:{apikey:SB_KEY,'Content-Type':'application/json'},
-  body:JSON.stringify(body)
- });
+
+let chatParticipant=null,chatMode=null,chatTimer=null;
+function chatAuth(){try{return JSON.parse(localStorage.getItem('comoara-auth')||'null')}catch(e){return null}}
+function chatSaved(){try{const v=JSON.parse(localStorage.getItem('comoara-participant')||'null');if(v?.id&&v?.token)return v}catch(e){}return null}
+async function chatRpc(fn,body,authRequired=false){
+ const a=chatAuth(),headers={apikey:SB_KEY,'Content-Type':'application/json'};
+ if(authRequired&&a?.access_token)headers.Authorization='Bearer '+a.access_token;
+ const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers,body:JSON.stringify(body||{})});
  if(!r.ok)throw Error(await r.text());
  const t=await r.text(); return t?JSON.parse(t):null;
 }
 function chatEsc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function resolveChatParticipant(){
+ const saved=chatSaved();
+ if(saved&&saved.challengeId===activeChallenge.id){chatParticipant={id:saved.id,token:saved.token};chatMode='token';return true}
+ const a=chatAuth();
+ if(a?.access_token&&a?.user?.id){
+  try{
+   const r=await fetch(SB_URL+'/rest/v1/participants?select=id&challenge_id=eq.'+activeChallenge.id+'&user_id=eq.'+a.user.id+'&limit=1',{headers:{apikey:SB_KEY,Authorization:'Bearer '+a.access_token}});
+   if(r.ok){const rows=await r.json();if(rows?.[0]?.id){chatParticipant={id:rows[0].id};chatMode='account';return true}}
+  }catch(e){}
+ }
+ chatParticipant=null;chatMode=null;return false;
+}
 async function initChallengeChat(){
  const gate=document.getElementById('chatGate'),msgs=document.getElementById('chatMessages'),form=document.getElementById('chatForm');
  if(!activeChallenge)return;
- const t=chatTokenData();
- if(!t){gate.style.display='block';gate.textContent='Înscrie-te în provocare pentru a participa la chat.';msgs.style.display=form.style.display='none';return}
- chatParticipant=t;
+ if(!(await resolveChatParticipant())){gate.style.display='block';gate.textContent='Înscrie-te în provocare pentru a participa la chat.';msgs.style.display=form.style.display='none';return}
  try{
   await loadChatMessages();
   gate.style.display='none';msgs.style.display='flex';form.style.display='flex';
   if(!chatTimer)chatTimer=setInterval(()=>{if(document.visibilityState==='visible')loadChatMessages(false)},12000);
- }catch(e){
-  gate.style.display='block';gate.textContent='Chatul nu a putut fi încărcat.';msgs.style.display=form.style.display='none';
- }
+ }catch(e){gate.style.display='block';gate.textContent='Chatul nu a putut fi încărcat.';msgs.style.display=form.style.display='none'}
 }
 async function loadChatMessages(scroll=true){
  if(!chatParticipant||!activeChallenge)return;
- const rows=await chatRpc('get_challenge_messages',{
-  p_challenge_id:activeChallenge.id,
-  p_participant_id:chatParticipant.id,
-  p_token:chatParticipant.token
- });
+ let rows;
+ if(chatMode==='token') rows=await chatRpc('get_challenge_messages',{p_challenge_id:activeChallenge.id,p_participant_id:chatParticipant.id,p_token:chatParticipant.token});
+ else rows=await chatRpc('get_account_challenge_messages',{p_challenge_id:activeChallenge.id},true);
  const box=document.getElementById('chatMessages');
- box.innerHTML=(rows||[]).reverse().map(m=>{
-  const mine=m.participant_id===chatParticipant.id;
-  const time=new Date(m.created_at).toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
-  return `<div class="chatMsg ${mine?'mine':''}"><div class="meta">${chatEsc(m.display_name||'Participant')} · ${time}</div><div class="body">${chatEsc(m.message)}</div>${mine?`<button class="del" onclick="deleteChatMessage('${m.id}')">Șterge</button>`:''}</div>`;
- }).join('')||'<div class="chatGate">Încă nu sunt mesaje. Scrie primul mesaj. 🙏</div>';
+ box.innerHTML=(rows||[]).reverse().map(m=>{const mine=m.participant_id===chatParticipant.id,time=new Date(m.created_at).toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});return `<div class="chatMsg ${mine?'mine':''}"><div class="meta">${chatEsc(m.display_name||'Participant')} · ${time}</div><div class="body">${chatEsc(m.message)}</div>${mine||isAdmin()?`<button class="del" onclick="deleteChatMessage('${m.id}')">Șterge</button>`:''}</div>`}).join('')||'<div class="chatGate">Încă nu sunt mesaje. Scrie primul mesaj. 🙏</div>';
  if(scroll)box.scrollTop=box.scrollHeight;
 }
 document.getElementById('chatForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const inp=document.getElementById('chatInput'),text=inp.value.trim();
- if(!text||!chatParticipant||!activeChallenge)return;
+ e.preventDefault();const inp=document.getElementById('chatInput'),text=inp.value.trim();if(!text||!chatParticipant||!activeChallenge)return;
  const btn=e.currentTarget.querySelector('button');btn.disabled=true;
  try{
-  await chatRpc('send_challenge_message',{
-   p_challenge_id:activeChallenge.id,
-   p_participant_id:chatParticipant.id,
-   p_token:chatParticipant.token,
-   p_message:text
-  });
+  if(chatMode==='token')await chatRpc('send_challenge_message',{p_challenge_id:activeChallenge.id,p_participant_id:chatParticipant.id,p_token:chatParticipant.token,p_message:text});
+  else await chatRpc('send_account_challenge_message',{p_challenge_id:activeChallenge.id,p_message:text},true);
   inp.value='';await loadChatMessages();
  }catch(e){alert('Mesajul nu a putut fi trimis.')}
  btn.disabled=false;
@@ -442,11 +419,8 @@ document.getElementById('chatForm').addEventListener('submit',async e=>{
 window.deleteChatMessage=async id=>{
  if(!confirm('Ștergi acest mesaj?'))return;
  try{
-  await chatRpc('delete_my_challenge_message',{
-   p_message_id:id,
-   p_participant_id:chatParticipant.id,
-   p_token:chatParticipant.token
-  });
+  if(chatMode==='token')await chatRpc('delete_my_challenge_message',{p_message_id:id,p_participant_id:chatParticipant.id,p_token:chatParticipant.token});
+  else await chatRpc('delete_account_challenge_message',{p_message_id:id},true);
   await loadChatMessages(false);
  }catch(e){alert('Mesajul nu a putut fi șters.')}
 };
