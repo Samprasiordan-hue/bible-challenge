@@ -197,7 +197,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=30"></script><script src="account.js?v=30"></script><script>
+<script src="app.js?v=31"></script><script src="account.js?v=31"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -362,14 +362,94 @@ window.adminDeleteParticipant=async function(id){
 };
 
 
+
 let chatParticipant=null,chatTimer=null;
-function chatAuth(){try{return JSON.parse(localStorage.getItem('comoara-auth')||'null')}catch(e){return null}}
-async function chatReq(path,opt={}){const a=chatAuth();if(!a?.access_token)throw Error('auth');const r=await fetch(SB_URL+'/rest/v1/'+path,{...opt,headers:{apikey:SB_KEY,Authorization:'Bearer '+a.access_token,'Content-Type':'application/json',Prefer:'return=representation',...(opt.headers||{})}});if(!r.ok)throw Error(await r.text());const t=await r.text();return t?JSON.parse(t):[]}
+function chatTokenData(){
+ try{
+  const keys=Object.keys(localStorage);
+  for(const k of keys){
+   if(k.toLowerCase().includes('participant')||k.toLowerCase().includes('challenge')){
+    const raw=localStorage.getItem(k);
+    if(!raw)continue;
+    try{
+     const v=JSON.parse(raw);
+     if(v&&typeof v==='object'){
+      const id=v.participant_id||v.participantId||v.id;
+      const token=v.participant_token||v.participantToken||v.token;
+      if(id&&token)return {id,token};
+     }
+    }catch(_){}
+   }
+  }
+ }catch(_){}
+ return null;
+}
+async function chatRpc(fn,body){
+ const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{
+  method:'POST',
+  headers:{apikey:SB_KEY,'Content-Type':'application/json'},
+  body:JSON.stringify(body)
+ });
+ if(!r.ok)throw Error(await r.text());
+ const t=await r.text(); return t?JSON.parse(t):null;
+}
 function chatEsc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-async function initChallengeChat(){const gate=document.getElementById('chatGate'),msgs=document.getElementById('chatMessages'),form=document.getElementById('chatForm');if(!activeChallenge)return;const a=chatAuth();if(!a?.user?.id){gate.style.display='block';msgs.style.display=form.style.display='none';return}try{const ps=await chatReq('participants?select=id,display_name,user_id&challenge_id=eq.'+activeChallenge.id+'&user_id=eq.'+a.user.id+'&limit=1');chatParticipant=ps?.[0]||null;if(!chatParticipant){gate.style.display='block';gate.textContent='Înscrie-te în provocare pentru a participa la chat.';msgs.style.display=form.style.display='none';return}gate.style.display='none';msgs.style.display='flex';form.style.display='flex';await loadChatMessages();if(!chatTimer)chatTimer=setInterval(()=>{if(document.visibilityState==='visible')loadChatMessages(false)},12000)}catch(e){gate.style.display='block';gate.textContent='Chatul nu a putut fi încărcat.'}}
-async function loadChatMessages(scroll=true){if(!chatParticipant||!activeChallenge)return;try{const rows=await chatReq('challenge_messages?select=id,participant_id,user_id,message,created_at,participants(display_name)&challenge_id=eq.'+activeChallenge.id+'&order=created_at.desc&limit=50');const box=document.getElementById('chatMessages'),a=chatAuth();box.innerHTML=(rows||[]).reverse().map(m=>{const mine=m.user_id===a?.user?.id,name=m.participants?.display_name||'Participant',time=new Date(m.created_at).toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});return `<div class="chatMsg ${mine?'mine':''}"><div class="meta">${chatEsc(name)} · ${time}</div><div class="body">${chatEsc(m.message)}</div>${mine||isAdmin()?`<button class="del" onclick="deleteChatMessage('${m.id}')">Șterge</button>`:''}</div>`}).join('')||'<div class="chatGate">Încă nu sunt mesaje. Scrie primul mesaj. 🙏</div>';if(scroll)box.scrollTop=box.scrollHeight}catch(e){}}
-document.getElementById('chatForm').addEventListener('submit',async e=>{e.preventDefault();const inp=document.getElementById('chatInput'),text=inp.value.trim(),a=chatAuth();if(!text||!chatParticipant||!a?.user?.id)return;const btn=e.currentTarget.querySelector('button');btn.disabled=true;try{await chatReq('challenge_messages',{method:'POST',body:JSON.stringify({challenge_id:activeChallenge.id,participant_id:chatParticipant.id,user_id:a.user.id,message:text})});inp.value='';await loadChatMessages()}catch(e){alert('Mesajul nu a putut fi trimis.')}btn.disabled=false});
-window.deleteChatMessage=async id=>{if(!confirm('Ștergi acest mesaj?'))return;try{await chatReq('challenge_messages?id=eq.'+encodeURIComponent(id),{method:'DELETE'});await loadChatMessages(false)}catch(e){alert('Mesajul nu a putut fi șters.')}};
+async function initChallengeChat(){
+ const gate=document.getElementById('chatGate'),msgs=document.getElementById('chatMessages'),form=document.getElementById('chatForm');
+ if(!activeChallenge)return;
+ const t=chatTokenData();
+ if(!t){gate.style.display='block';gate.textContent='Înscrie-te în provocare pentru a participa la chat.';msgs.style.display=form.style.display='none';return}
+ chatParticipant=t;
+ try{
+  await loadChatMessages();
+  gate.style.display='none';msgs.style.display='flex';form.style.display='flex';
+  if(!chatTimer)chatTimer=setInterval(()=>{if(document.visibilityState==='visible')loadChatMessages(false)},12000);
+ }catch(e){
+  gate.style.display='block';gate.textContent='Chatul nu a putut fi încărcat.';msgs.style.display=form.style.display='none';
+ }
+}
+async function loadChatMessages(scroll=true){
+ if(!chatParticipant||!activeChallenge)return;
+ const rows=await chatRpc('get_challenge_messages',{
+  p_challenge_id:activeChallenge.id,
+  p_participant_id:chatParticipant.id,
+  p_token:chatParticipant.token
+ });
+ const box=document.getElementById('chatMessages');
+ box.innerHTML=(rows||[]).reverse().map(m=>{
+  const mine=m.participant_id===chatParticipant.id;
+  const time=new Date(m.created_at).toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
+  return `<div class="chatMsg ${mine?'mine':''}"><div class="meta">${chatEsc(m.display_name||'Participant')} · ${time}</div><div class="body">${chatEsc(m.message)}</div>${mine?`<button class="del" onclick="deleteChatMessage('${m.id}')">Șterge</button>`:''}</div>`;
+ }).join('')||'<div class="chatGate">Încă nu sunt mesaje. Scrie primul mesaj. 🙏</div>';
+ if(scroll)box.scrollTop=box.scrollHeight;
+}
+document.getElementById('chatForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const inp=document.getElementById('chatInput'),text=inp.value.trim();
+ if(!text||!chatParticipant||!activeChallenge)return;
+ const btn=e.currentTarget.querySelector('button');btn.disabled=true;
+ try{
+  await chatRpc('send_challenge_message',{
+   p_challenge_id:activeChallenge.id,
+   p_participant_id:chatParticipant.id,
+   p_token:chatParticipant.token,
+   p_message:text
+  });
+  inp.value='';await loadChatMessages();
+ }catch(e){alert('Mesajul nu a putut fi trimis.')}
+ btn.disabled=false;
+});
+window.deleteChatMessage=async id=>{
+ if(!confirm('Ștergi acest mesaj?'))return;
+ try{
+  await chatRpc('delete_my_challenge_message',{
+   p_message_id:id,
+   p_participant_id:chatParticipant.id,
+   p_token:chatParticipant.token
+  });
+  await loadChatMessages(false);
+ }catch(e){alert('Mesajul nu a putut fi șters.')}
+};
 document.getElementById('chatRefresh').onclick=initChallengeChat;
 
 loadChallenge();setTimeout(initChallengeChat,1500);
