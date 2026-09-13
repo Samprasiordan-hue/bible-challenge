@@ -132,7 +132,7 @@ body{padding-bottom:0!important}
 .readingReminder{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:#ffffff10;border:1px solid #ffffff24}.readingReminder div{display:grid;gap:3px}.readingReminder b{color:#fff}.readingReminder span{font-size:12px;color:#d9e0e5}.readingReminder button{border:0;border-radius:9px;padding:10px 13px;background:#f4c65e;color:#102b3c;font-weight:900}.readingReminder button.on{background:#dff3df;color:#175b2c}
 @media(max-width:650px){.readingReminder{align-items:stretch;flex-direction:column}.readingReminder button{width:100%}}
 </style><style>.participantAdminActions{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.participantAdminActions button{padding:6px 8px;border-radius:7px;border:1px solid #d8b65a;background:#fff8e5;color:#173043;font-weight:800;font-size:11px}.participantAdminActions .danger{background:#9d2e2e;color:#fff;border-color:#9d2e2e}</style><style>
-.challengeChat{margin:18px 0;padding:14px;border-radius:16px;background:#fff;border:1px solid #e3d5aa;color:#173043;text-align:left}.chatHead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee2c5;padding-bottom:10px}.chatHead div{display:grid}.chatHead small{opacity:.65}.chatHead button{border:0;background:#f4c65e;border-radius:9px;padding:8px 11px}.chatGate{padding:18px 4px;text-align:center;color:#6e6e6e}.chatMessages{height:300px;overflow:auto;padding:10px 2px;display:flex;flex-direction:column;gap:9px}.chatMsg{max-width:84%;padding:9px 11px;border-radius:12px;background:#f3f1eb;align-self:flex-start}.chatMsg.mine{background:#fff1bd;align-self:flex-end}.chatMsg .meta{font-size:11px;font-weight:800;opacity:.65}.chatMsg .body{white-space:pre-wrap;overflow-wrap:anywhere}.chatMsg .del{border:0;background:none;color:#9d2e2e;font-size:11px;float:right}.chatForm{display:flex;gap:8px;border-top:1px solid #eee2c5;padding-top:10px}.chatForm input{flex:1;min-width:0;border:1px solid #d9d3c5;border-radius:10px;padding:11px;font-size:16px}.chatForm button{border:0;border-radius:10px;background:#173f59;color:#fff;font-weight:900;padding:0 15px}
+.challengeChat{margin:18px 0;padding:14px;border-radius:16px;background:#fff;border:1px solid #e3d5aa;color:#173043;text-align:left}.chatHead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee2c5;padding-bottom:10px}.chatHead div{display:grid}.chatHead small{opacity:.65}.chatHead button{border:0;background:#f4c65e;border-radius:9px;padding:8px 11px}.chatTools{display:flex!important;gap:6px;align-items:center}.chatTools #chatPushBtn{font-size:12px}.chatGate{padding:18px 4px;text-align:center;color:#6e6e6e}.chatMessages{height:300px;overflow:auto;padding:10px 2px;display:flex;flex-direction:column;gap:9px}.chatMsg{max-width:84%;padding:9px 11px;border-radius:12px;background:#f3f1eb;align-self:flex-start}.chatMsg.mine{background:#fff1bd;align-self:flex-end}.chatMsg .meta{font-size:11px;font-weight:800;opacity:.65}.chatMsg .body{white-space:pre-wrap;overflow-wrap:anywhere}.chatMsg .del{border:0;background:none;color:#9d2e2e;font-size:11px;float:right}.chatForm{display:flex;gap:8px;border-top:1px solid #eee2c5;padding-top:10px}.chatForm input{flex:1;min-width:0;border:1px solid #d9d3c5;border-radius:10px;padding:11px;font-size:16px}.chatForm button{border:0;border-radius:10px;background:#173f59;color:#fff;font-weight:900;padding:0 15px}
 </style></head><body>
 <header class="top"><div class="w nav"><div class="brand"><img src="logo-comoara-ascunsa.jpg" alt=""><div><span>Comoara</span> Ascunsă</div></div><nav class="links"><a href="#acasa">Acasă</a><a href="#planuri">Planuri de citire</a><a href="#provocari">Provocări</a><a href="#biblia">Biblia</a><a href="#quiz">Quiz</a><a href="#resurse">Resurse</a><a href="#despre">Despre</a><a href="#cont" id="accountNav">Conectare</a><a href="#stiri">🌍 Știri creștine</a><a href="#calendar-evreiesc">📅 Calendar</a></nav></div></header>
 <section class="hero" id="acasa"><div class="w heroIn"><h1>Cuvântul lui Dumnezeu<br><span>este comoara vieții!</span></h1><p>„Ferice de cei ce ascultă Cuvântul lui Dumnezeu și-l păzesc!”</p><p><b>Luca 11:28</b></p></div><div class="script">Maranata!</div></section>
@@ -142,7 +142,7 @@ body{padding-bottom:0!important}
 <div class="midgrid"><article class="card verse"><div><div class="cardhead"><h3>📖 Versetul zilei</h3></div><blockquote>„Încrede-te în Domnul din toată inima ta și nu te sprijini pe înțelepciunea ta!”</blockquote><p><b>Proverbele 3:5</b></p></div></article><article class="card notes"><div class="cardhead"><h3>✎ Notițe personale</h3></div><textarea id="personalNotes" placeholder="Ce mi-a vorbit Dumnezeu astăzi?"></textarea><p class="muted">Notițele tale se salvează automat pe acest dispozitiv.</p></article></div>
 <section class="card plans" id="planuri"><div class="cardhead"><h3>🎯 Alege planul tău</h3><span class="muted">40 • 60 • 90 zile</span></div><div class="plansGrid"><div class="card plan" data-p="90"><b>🗓️ Plan 90 de zile</b><p>Citirea întregii Biblii într-un ritm constant</p><button class="btn" type="button">Alege planul</button></div><div class="card plan" data-p="60"><b>🗓️ Plan 60 de zile</b><p>Un ritm echilibrat și susținut</p><button class="btn" type="button">Alege planul</button></div><div class="card plan" data-p="40"><b>🗓️ Plan 40 de zile</b><p>Provocarea intensivă</p><button class="btn" type="button">Alege planul</button></div></div><div class="startbox"><label><b>Data de început:</b> <input id="start" type="date"></label><div class="todayLegacy" id="today"></div></div><div style="display:flex;justify-content:space-between;margin:15px 0 7px"><b>Progres</b><b id="pct">0%</b></div><div class="bar"><i id="bar"></i></div><p id="summary"></p><div class="directDaysHead"><b>Alege ziua și deschide direct Biblia</b><span class="muted">Apasă pe orice zi</span></div><div class="daysWrap directDays" id="days"></div></section>
 <section id="provocari" class="challengeHero"><p style="color:#f4c65e;font-weight:bold;margin:0">👥 CITEȘTE ÎMPREUNĂ</p><h2 id="challengeTitle">Maranata – Biblia în 90 de zile</h2><div id="challengeStartInfo" class="challengeStartInfo"><b>📅 Începe: 1 octombrie 2026</b><span id="challengeCountdown">Se calculează timpul rămas…</span></div><div class="readingReminder"><div><b>🔔 Amintește-mi dacă uit lectura</b><span>La ora 20:00, dacă lectura de azi nu este bifată.</span></div><button id="enableReadingReminder" type="button">Activează notificările</button></div><p>Alătură-te provocării, citește zilnic și urmărește progresul comunității.</p><div class="challengeStats"><div class="challengeStat"><b id="chPeople">—</b><span>participanți</span></div><div class="challengeStat"><b id="challengeDaysStat">90</b><span>zile</span></div></div><div class="joinrow"><input id="joinName" maxlength="60" placeholder="Scrie numele tău"><button class="btn gold" id="joinChallenge">Mă alătur</button><button class="btn sharebtn" id="shareChallenge">Trimite pe WhatsApp</button></div><div id="challengeMsg" class="challengeMsg"></div><div id="challengeChat" class="challengeChat">
-<div class="chatHead"><div><b>💬 Chatul provocării</b><small>Doar pentru participanții înscriși</small></div><button id="chatRefresh" type="button">↻</button></div>
+<div class="chatHead"><div><b>💬 Chatul provocării</b><small>Doar pentru participanții înscriși</small></div><div class="chatTools"><button id="chatPushBtn" type="button">🔔 Notificări</button><button id="chatRefresh" type="button">↻</button></div></div>
 <div id="chatGate" class="chatGate">Conectează-te și înscrie-te în provocare pentru a participa la chat.</div>
 <div id="chatMessages" class="chatMessages" style="display:none"></div>
 <form id="chatForm" class="chatForm" style="display:none"><input id="chatInput" maxlength="500" autocomplete="off" placeholder="Scrie un mesaj…"><button type="submit">Trimite</button></form>
@@ -197,7 +197,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=32"></script><script src="account.js?v=32"></script><script>
+<script src="app.js?v=33"></script><script src="account.js?v=33"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -410,12 +410,67 @@ document.getElementById('chatForm').addEventListener('submit',async e=>{
  e.preventDefault();const inp=document.getElementById('chatInput'),text=inp.value.trim();if(!text||!chatParticipant||!activeChallenge)return;
  const btn=e.currentTarget.querySelector('button');btn.disabled=true;
  try{
-  if(chatMode==='token')await chatRpc('send_challenge_message',{p_challenge_id:activeChallenge.id,p_participant_id:chatParticipant.id,p_token:chatParticipant.token,p_message:text});
-  else await chatRpc('send_account_challenge_message',{p_challenge_id:activeChallenge.id,p_message:text},true);
+  await chatEdge('send',{message:text});
   inp.value='';await loadChatMessages();
  }catch(e){alert('Mesajul nu a putut fi trimis.')}
  btn.disabled=false;
 });
+
+function chatFunctionHeaders(){
+ const a=chatAuth(),headers={apikey:SB_KEY,'Content-Type':'application/json'};
+ if(chatMode==='account'&&a?.access_token)headers.Authorization='Bearer '+a.access_token;
+ return headers;
+}
+function chatFunctionBody(extra={}){
+ const b={challenge_id:activeChallenge.id,...extra};
+ if(chatMode==='token'){b.participant_id=chatParticipant.id;b.participant_token=chatParticipant.token}
+ return b;
+}
+async function chatEdge(action,extra={}){
+ const r=await fetch(SB_URL+'/functions/v1/challenge-chat-push',{
+  method:'POST',headers:chatFunctionHeaders(),body:JSON.stringify(chatFunctionBody({action,...extra}))
+ });
+ if(!r.ok)throw Error(await r.text());
+ return await r.json();
+}
+function urlB64ToUint8Array(base64String){
+ const padding='='.repeat((4-base64String.length%4)%4);
+ const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');
+ const raw=atob(base64);return Uint8Array.from([...raw].map(c=>c.charCodeAt(0)));
+}
+async function enableChatPush(){
+ const btn=document.getElementById('chatPushBtn');
+ if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){
+  alert('Notificările push nu sunt disponibile pe acest dispozitiv/browser.');return;
+ }
+ if(!chatParticipant||!activeChallenge){alert('Trebuie să fii înscris în provocare.');return}
+ const standalone=window.matchMedia?.('(display-mode: standalone)')?.matches||navigator.standalone===true;
+ if(/iPhone|iPad|iPod/i.test(navigator.userAgent)&&!standalone){
+  alert('Pe iPhone, adaugă mai întâi Comoara Ascunsă pe ecranul principal, apoi deschide aplicația de acolo și activează notificările.');
+  return;
+ }
+ btn.disabled=true;
+ try{
+  const perm=await Notification.requestPermission();
+  if(perm!=='granted'){alert('Notificările nu au fost permise.');return}
+  const reg=await navigator.serviceWorker.ready;
+  let sub=await reg.pushManager.getSubscription();
+  if(!sub){
+   const keyResp=await fetch(SB_URL+'/functions/v1/challenge-chat-push',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({action:'vapid-key',challenge_id:activeChallenge.id})});
+   if(!keyResp.ok)throw Error(await keyResp.text());
+   const {public_key}=await keyResp.json();
+   sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlB64ToUint8Array(public_key)});
+  }
+  await chatEdge('subscribe',{subscription:sub.toJSON()});
+  localStorage.setItem('comoara-chat-push','on');
+  btn.textContent='🔔 Activ';
+  alert('Notificările pentru chat sunt activate.');
+ }catch(e){
+  alert('Nu am putut activa notificările. Încearcă din nou.');
+ }finally{btn.disabled=false}
+}
+document.getElementById('chatPushBtn').onclick=enableChatPush;
+if(localStorage.getItem('comoara-chat-push')==='on')document.getElementById('chatPushBtn').textContent='🔔 Activ';
 window.deleteChatMessage=async id=>{
  if(!confirm('Ștergi acest mesaj?'))return;
  try{
