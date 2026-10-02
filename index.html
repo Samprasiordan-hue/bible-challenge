@@ -197,7 +197,7 @@ body{padding-bottom:0!important}
   </div>
 </section>
 <footer>„Cercetați Scripturile, căci socotiți că în ele aveți viața veșnică.” — Ioan 5:39<br><br>© Comoara Ascunsă • Iordan Sampras</footer>
-<script src="app.js?v=33"></script><script src="account.js?v=33"></script><script>
+<script src="app.js?v=34"></script><script src="account.js?v=34"></script><script>
 (function(){
  const notes=document.getElementById('personalNotes'); notes.value=localStorage.getItem('comoara-notes')||''; notes.addEventListener('input',()=>localStorage.setItem('comoara-notes',notes.value));
  function updateDash(){
@@ -609,4 +609,35 @@ loadChallenge();setTimeout(initChallengeChat,1500);
  }
  setInterval(checkReminder,60000);checkReminder();
 })();
-</script></body></html>
+</script>
+<div id="forgotPassModal" style="display:none;position:fixed;inset:0;background:#0008;z-index:100000;align-items:center;justify-content:center;padding:20px">
+ <div style="background:#fff;max-width:420px;width:100%;padding:22px;border-radius:18px;color:#173043">
+  <b style="font-size:20px">Resetare parolă</b><p>Introdu emailul contului tău.</p>
+  <input id="forgotEmail" type="email" placeholder="Email" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid #ccc;border-radius:10px">
+  <div style="display:flex;gap:8px;margin-top:12px"><button id="forgotSend" type="button">Trimite link</button><button id="forgotClose" type="button">Închide</button></div>
+  <div id="forgotMsg" style="margin-top:10px"></div>
+ </div>
+</div>
+<script>
+(function(){
+ const modal=document.getElementById('forgotPassModal');
+ const candidates=[...document.querySelectorAll('button,a')].filter(x=>/conect|login|cont/i.test(x.textContent||''));
+ if(candidates.length){
+  const b=document.createElement('button');b.type='button';b.textContent='Ai uitat parola?';b.className='forgotPassBtn';
+  b.style.cssText='display:block;margin:10px auto;border:0;background:none;text-decoration:underline;color:#173f59';
+  candidates[0].parentElement?.appendChild(b);b.onclick=()=>modal.style.display='flex';
+ }
+ document.getElementById('forgotClose').onclick=()=>modal.style.display='none';
+ document.getElementById('forgotSend').onclick=async()=>{
+  const email=document.getElementById('forgotEmail').value.trim(),m=document.getElementById('forgotMsg');if(!email)return;
+  try{
+   const r=await fetch(SB_URL+'/auth/v1/recover?redirect_to='+encodeURIComponent(location.origin+location.pathname),{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({email})});
+   if(!r.ok)throw Error();m.textContent='Dacă există contul, linkul de resetare a fost trimis pe email.';
+  }catch(e){m.textContent='Nu am putut trimite emailul acum.'}
+ };
+ // refresh challenge/chat smoothly when returning to tab/site
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden){try{loadChallenge()}catch(e){};try{initChallengeChat()}catch(e){}}});
+ window.addEventListener('focus',()=>{try{loadPeople()}catch(e){};try{loadChatMessages(false)}catch(e){}});
+})();
+</script>
+</body></html>

@@ -75,3 +75,30 @@ $('signupBtn').onclick=signup;$('loginBtn').onclick=login;$('logoutBtn').onclick
  document.addEventListener('click',e=>{const a=e.target.closest('a[href="#biblia"],a[href="#biblia-libera"]');if(a){e.preventDefault();make()}});
  const old=document.getElementById('openFreeBible');if(old)old.textContent='Deschide Biblia ca în aplicație';if(old)old.onclick=()=>make();
 })();
+
+
+// V34 — memorare poziție lectură + ieșire rapidă
+(function(){
+ const KEY='comoara-reader-position-v34';
+ function visibleReader(){
+   return [...document.querySelectorAll('[id*="reader" i], [class*="reader" i], [id*="bible" i], [class*="bible" i]')]
+    .find(el=>{const st=getComputedStyle(el);return st.display!=='none'&&st.visibility!=='hidden'&&el.scrollHeight>el.clientHeight+100});
+ }
+ function save(){
+   const r=visibleReader(); if(!r)return;
+   const key=(r.id||r.className||'reader')+'|'+(document.querySelector('[data-day].active')?.dataset.day||'');
+   try{localStorage.setItem(KEY,JSON.stringify({key,top:r.scrollTop||window.scrollY,t:Date.now()}))}catch(e){}
+ }
+ function restore(){
+   const r=visibleReader();if(!r)return;
+   try{const v=JSON.parse(localStorage.getItem(KEY)||'null');if(v&&Date.now()-v.t<2592000000)setTimeout(()=>{r.scrollTop=v.top||0},250)}catch(e){}
+ }
+ let timer; document.addEventListener('scroll',()=>{clearTimeout(timer);timer=setTimeout(save,180)},true);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});
+ window.addEventListener('pagehide',save);
+ const b=document.createElement('button');b.id='readerQuickExit';b.type='button';b.textContent='← Ieși';b.setAttribute('aria-label','Ieși din Biblie');
+ Object.assign(b.style,{position:'fixed',top:'calc(env(safe-area-inset-top, 0px) + 10px)',left:'10px',zIndex:'99999',display:'none',border:'0',borderRadius:'999px',padding:'10px 14px',fontWeight:'800',background:'#173f59',color:'#fff',boxShadow:'0 3px 14px #0003'});
+ document.addEventListener('DOMContentLoaded',()=>document.body.appendChild(b));
+ b.onclick=()=>{save();const r=visibleReader();const close=r?.querySelector('[data-close],.close,.readerClose,.bibleClose,button[aria-label*="înch" i],button[aria-label*="close" i]');if(close)close.click();else history.back()};
+ setInterval(()=>{const r=visibleReader();b.style.display=r?'block':'none';if(r&&!r.dataset.v34restored){r.dataset.v34restored='1';restore()}},500);
+})();
